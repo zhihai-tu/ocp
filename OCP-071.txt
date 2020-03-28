@@ -1,0 +1,2158 @@
+1
+Examine the description of the PRODUCT_INFORMATION table:
+
+Name                    Null?          Type
+---------------------- --------------- -----------------
+PROD_ID                 NOT NULL        NUMBER(2)
+PROD_NAME                               VARCHAR2(10)
+LIST_PRICE                              NUMBER(6,2)
+
+Which query retrieves the number of products with a null list price?
+
+A.SELECT COUNT(list_price) FROM product_information WHERE list_price IS NULL;
+B.SELECT COUNT(list_price) FROM product_information WHERE list_price = NULL;
+C.SELECT COUNT(NVL(list_price, 0)) FROM product_information WHERE list_price IS NULL;
+D.SELECT COUNT(DISTINCT list_price) FROM product_information WHERE list_price IS NULL;
+正确答案是 C， 回答正确
+
+2
+Which statement is true about aggregate functions?
+
+
+A.Aggregate functions can be used in any clause of a SELECT statement.
+B.The MAX and MIN functions can be used on columns with character data types.
+C.The AVG function implicitly converts NULLS to zero.
+D.Aggregate functions can be nested to any number of levels. 
+
+正确答案是 B， 回答正确
+3
+Which two statements are true about substitution variables?
+
+
+A.A substitution variable prefixed with & always prompts only once for a value in a session.
+B.A substitution variable used to prompt for a column name must be enclosed in double quotation marks.
+C.A substitution variable can be used only in a SELECT statement.
+D.A substitution variable can be used with any clause in a SELECT statement.
+E.A substitution variable used to prompt for a column name must be enclosed in single quotation marks.
+F.A substitution variable prefixed with && prompts only once for a value in a session unless it is set to undefined in the session. 
+
+正确答案是 B,F， 回答正确
+4
+The CUSTOMERS table has a CUST_LAST_NAME column of data type VARCHAR2.
+
+
+The table has two rows whose CUST_LAST_NAME values are Anderson and Ausson.
+
+
+Which query produces output for CUST_LAST_NAME containing oder for the first row and Aus for the second?
+
+
+A.SELECT INITCAP(REPLACE(TRIM('son' FROM cust_last_name), 'An', 'O')) FROM customers;
+
+B.SELECT REPLACE(SUBSTR(cust_last_name, -3), 'An', 'O') FROM customers;
+
+C.SELECT REPLACE(REPLACE(cust_last_name, 'son', ''), 'An', 'O') FROM customers;
+
+D.SELECT REPLACE(TRIM(TRAILING ' son' FROM cust_last_name), 'An', 'O') FROM customers;
+
+正确答案是 C， 回答正确
+5
+You have been tasked to create a table for a banking application.
+
+
+One of the columns must meet three requirements:
+
+
+
+1) Be stored in a format supporting date arithmetic without using conversion functions
+
+
+
+2) Store a loan period of up to 10 years
+
+
+
+3) Be used for calculating interest for the number of days the loan remains unpaid
+
+
+
+Which data type should you use?
+
+
+A.TIMESTAMP
+
+B.TIMESTAMP WITH TIME ZONE
+
+C.INTERVAL DAY TO SECOND
+
+D.INTERVAL YEAR TO MONTH
+
+E.TIMESTAMP WITH LOCAL TIME ZONE
+
+正确答案是 C， 回答正确
+6
+You issued this command:
+
+
+
+DROP TABLE hr.employees;
+
+
+Which three statements are true?
+
+
+A.The HR.EMPLOYEES table may be moved to the recycle bin.
+B.Views referencing HR.EMPLOYEES are dropped.
+C.Sequences used to populate columns in the HR.EMPLOYEES table are dropped.
+D.Synonyms for HR.EMPLOYEES are dropped.
+E.All constraints defined on HR.EMPLOYEES are dropped.
+F.All indexes defined on HR.EMPLOYEES are dropped.
+正确答案是 A,B,F， 回答正确
+
+7
+Which three statements are true about sequences in a single instance Oracle database?
+
+A.A sequence can only be dropped by a DBA.
+B.A sequence can issue duplicate values.
+C.A sequence number that was allocated can be rolled back if a transaction fails.
+D.A sequence's unallocated cached values are lost if the instance shuts down.
+E.Sequences can always have gaps.
+F.Two or more tables cannot have keys generated from the same sequence.
+正确答案是 B,C,D， 你的答案是 C,D,E。你答错了
+
+8
+View the Exhibits and examine the structure of the COSTS and PROMOTIONS tables.
+
+
+
+
+
+
+You want to display PROD_IDS whose promotion cost is less than the highest cost PROD_ID in a promotion time interval.
+
+
+Examine this SQL statement:
+
+
+
+SELECT prod_id
+
+   FROM costs
+
+  WHERE promo_id IN
+
+     (SELECT promo_id
+
+        FROM promotions
+
+       WHERE promo_cost < ALL
+
+          (SELECT MAX(promo_cost)
+
+              FROM promotions
+
+             GROUP BY (promo_end_date - promo_begin_date);
+
+
+What will be the result?
+
+
+A.It gives an error because the ALL keyword is not valid.
+B.It executes successfully but does not give the required result.
+C.It executes successfully and gives the required result.
+D.It gives an error because the GROUP BY clause is not valid. 
+
+正确答案是 D， 回答正确
+9
+Examine the description of the PROMOTIONS table:
+
+
+
+Name                    Null?          Type
+
+---------------------- --------------- -----------------
+
+PROMO_ID                NOT NULL       NUMBER(6)
+
+PROMO_NAME              NOT NULL       VARCHAR2(30)
+
+PROMO_CATEGORY          NOT NULL       VARCHAR2(30)
+
+PROMO_COST              NOT NULL       NUMBER(10,2)
+
+
+You want to display the unique promotion costs in each promotion category.
+
+
+Which two queries can be used?
+
+
+A.SELECT DISTINCT promo_category, promo_cost FROM promotions ORDER BY 1;
+
+B.SELECT DISTINCT promo_category || ' has ' || promo_cost AS COSTS FROM promotions ORDER BY 1;
+
+C.SELECT promo_cost, promo_category FROM promotions ORDER BY by 1;
+
+D.SELECT promo_category, DISTINCT promo_cost FROM promotions ORDER BY 2;
+
+E.SELECT DISTINCT promo_cost ||' in '|| DISTINCT promo_category FROM promotions ORDER BY 1;
+
+正确答案是 A,B， 回答正确
+10
+Which two actions can you perform with object privileges?
+
+
+A.Execute a procedure or function in another schema.
+B.Set default and temporary tablespaces for a user.
+C.Create roles.
+D.Delete rows from tables in any schema except SYS.
+E.Create FOREIGN KEY constraints that reference tables in other schemas.
+正确答案是 A,D， 你的答案是 A,E。你答错了
+11
+The ORDERS table has a primary key constraint on the ORDER_ID column.
+
+
+The ORDER_ITEMS table has a foreign key constraint on the ORDER_ID column, referencing the primary key of the ORDERS table.
+
+
+The constraint is defined with ON DELETE CASCADE.
+
+
+There are rows in the ORDERS table with an ORDER_TOTAL of less than 1000.
+
+
+Which three DELETE statements execute successfully?
+
+
+A.DELETE FROM orders;
+
+B.DELETE FROM orders WHERE order_total < 1000;
+
+C.DELETE order_id FROM orders WHERE order_total < 1000;
+
+D.DELETE * FROM orders WHERE order_total < 1000;
+
+E.DELETE orders WHERE order_total < 1000;
+
+正确答案是 A,B,E， 你的答案是 A,B,D。你答错了
+12
+Which two are true about multitable INSERT statements?
+
+
+A.The conditional INSERT ALL statement inserts rows into a single table by aggregating source rows.
+B.They always use subqueries.
+C.The unconditional INSERT ALL statement must have the same number of columns in both the source and target tables.
+D.The conditional INSERT FIRST statement always inserts a row into a single table.
+E.They can transform a row from a source table into multiple rows in a target table.
+正确答案是 B,E， 回答正确
+13
+ In the PROMOTIONS table, the PROMO_BEGIN_DATE column is of data type DATE and the default date format is DD-MON-RR.
+
+
+Which two statements are true about expressions using PROMO_BEGIN_DATE contained in a query?
+
+
+A.PROMO_BEGIN_DATE - SYSDATE will return an error.
+B.PROMO_BEGIN_DATE - 5 will return a date.
+C.TO_DATE (PROMO_BEGIN_DATE * 5) will return a date.
+D.PROMO_BEGIN_DATE - SYSDATE will return a number.
+E.TO_NUMBER(PROMO_BEGIN_DATE) - 5 will return a number. 
+
+正确答案是 B,D， 回答正确
+14
+Which three statements are true about views in an Oracle database?
+
+
+A.Tables in the defining query of a view must always exist in order to create the view.
+B.Deleting one or more rows using a view whose defining query contains a GROUP BY clause will cause an error.
+C.The WITH CHECK clause prevents certain rows from being displayed when querying the view.
+D.Views can be updated without the need to re-grant privileges on the view.
+E.Inserting one or more rows using a view whose defining query contains a GROUP BY clause will cause an error.
+F.Data Manipulation Language (DML) can always be used on views.
+G.The WITH CHECK clause prevents certain rows from being updated or inserted. 
+
+正确答案是 B,E,G， 回答正确
+15
+Which three statements are true about built-in data types?
+
+
+A.A BFILE stores unstructured binary data in operating system files.
+B.A VARCHAR2 blank pads column values only if the data stored is non-numeric and contains no special characters.
+C.The default length for a CHAR column is always one character.
+D.A BLOB stores unstructured binary data within the database.
+E.A VARCHAR2 column definition does not require the length to be specified.
+F.A CHAR column definition does not require the length to be specified.
+正确答案是 A,D,F， 你的答案是 B,D,F。你答错了
+16
+Examine the description of the PRODUCTS table:
+
+
+
+Name                    Null?          Type
+
+---------------------- --------------- -----------------
+
+PRODUCT_ID              NOT NULL        NUMBER(2)
+
+PRODUCT_NAME                            VARCHAR2(10)
+
+UNIT_PRICE                              NUMBER(3)
+
+SURCHARGE                               VARCHAR2(2)
+
+EXPIRY_DATE                             DATE
+
+DELIVERY_DATE                           DATE
+
+
+Which three queries use valid expressions?
+
+
+A.SELECT product_id, (unit_price * 0.15 / (4.75 + 552.25)) FROM products;
+
+B.SELECT product_id, unit_price, unit_price + surcharge FROM products;
+
+C.SELECT product_id, unit_price || 5 "Discount" , unit_price + surcharge - discount FROM products;
+
+D.SELECT product_id, unit_price, 5 "Discount", unit_price + surcharge - discount FROM products;
+
+E.SELECT product_id, (expiry_date - delivery_date) * 2 FROM products;
+
+F.SELECT product_id, expiry_date * 2 FROM products;
+
+正确答案是 A,B,E， 回答正确
+17
+Which three statements are true about Data Manipulation Language (DML)?
+
+
+A.UPDATE statements can have different subqueries to specify the values for each updated column.
+B.DELETE statements can remove multiple rows based on multiple conditions.
+C.DML statements require a primary key be defined on a table.
+D.INSERT statements can insert NULLS explicitly into a column.
+E.INSERT INTO...SELECT...FROM statements automatically commit.
+正确答案是 A,B,D， 回答正确
+18
+You execute this command:
+
+
+
+ALTER TABLE employees SET UNUSED (department_id);
+
+
+Which two are true?
+
+
+A.The DEPARTMENT_ID column is set to null for all rows in the table.
+B.The storage space occupied by the DEPARTMENT_ID column is released only after a COMMIT is issued.
+C.A new column with the name DEPARTMENT_ID can be added to the EMPLOYEES table.
+D.No updates can be made to the data in the DEPARTMENT_ID column.
+E.A query can display data from the DEPARTMENT_ID column.
+F.The DEPARTMENT_ID column can be recovered from the recycle bin.
+正确答案是 C,D， 你的答案是 B,D。你答错了
+19
+Examine the description of the CUSTOMERS table:
+
+
+
+Name                    Null?          Type 
+
+---------------------- --------------- -----------------
+
+CUSTNO                  NOT NULL        NUMBER(3)
+
+CUSTNAME                NOT NULL        VARCHAR2(25)
+
+CUSTADDRESS                             VARCHAR2(35)
+
+CUST_CREDIT_LIMIT                       NUMBER(5)
+
+
+CUSTNO is the PRIMARY KEY.
+
+
+You must determine if any customers' details have been entered more than once using a different CUSTNO, by listing all duplicate names.
+
+
+Which two methods can you use to get the required result?
+
+
+A.RIGHT OUTER JOIN with self join
+
+B.LEFT OUTER JOIN with self join
+
+C.subquery
+
+D.self join
+
+E.FULL OUTER JOIN with self join
+
+正确答案是 C,D， 回答正确
+20
+Which three actions can you perform by using the ALTER TABLE command?
+
+
+A.Lock a set of rows in a table.
+B.Rename a table.
+C.Enable or disable constraints on a table.
+D.Restrict all DML statements on a table.
+E.Drop pseudocolumns from a table.
+F.Drop all columns simultaneously from a table.
+正确答案是 B,C,D， 你的答案是 B,C,F。你答错了
+21
+Table ORDER_ITEMS contains columns ORDER_ID, UNIT_PRICE and QUANTITY, of data type NUMBER.
+
+
+Examine these SQL statements:
+
+
+
+Statement 1: .
+
+
+SELECT MAX(unit_price * quantity) "Maximum Order"
+
+    FROM order_items ; 
+
+
+Statement 2:
+
+
+
+SELECT MAX(unit_price * quantity) "Maximum order"
+
+    FROM order_items   GROUP BY order_id;
+
+
+Which two statements are true?
+
+
+A.Both the statements give the same output.
+B.Statement 2 returns only one row of output.
+C.Statement 2 may return multiple rows of output.
+D.Statement 1 returns only one row of output.
+E.Both statements will return NULL if either UNIT_PRICE or QUANTITY contains NULL
+
+正确答案是 B,D， 你的答案是 C,D。你答错了
+22
+Examine the description of the BOOKS_TRANSACTIONS table:
+
+
+
+Name                    Null?          Type
+
+---------------------- --------------- -----------------
+
+TRANSACTION_ID           NOT NULL       VARCHAR2(6)
+
+TRANSACTION_TYPE                        VARCHAR2(3)
+
+BORROWED_DATE                           DATE
+
+BOOK_ID                                 VARCHAR2(6)
+
+MEMBER_ID                               VARCHAR2(6)
+
+
+Examine this partial SQL statement:
+
+
+
+SELECT * FROM books_transactions
+
+
+Which two WHERE conditions give the same result?
+
+
+A.WHERE borrowed_date = SYSDATE AND (transaction_type = 'RM' AND (member_id = 'A101' OR member_id = 'A102'));
+
+B.WHERE borrowed_date = SYSDATE AND (transaction_type = 'RM' OR member_id IN ('A101', 'A102'));
+
+C.WHERE (borrowed_date = SYSDATE AND transaction_type = 'RM') OR member_id IN ('Al01', 'A102');
+
+D.WHERE borrowed_date = SYSDATE AND (transaction_type = 'RM' AND member_id = 'A101' OR member_id = 'A102');
+
+E.WHERE borrowed_date = SYSDATE AND transaction_type = 'RM' OR member_id IN ('A101', 'A102');
+
+正确答案是 C,E， 回答正确
+23
+Examine these SQL statements which execute successfully:
+
+
+
+CREATE TABLE emp,
+
+   (emp_no  NUMBER(2)  CONSTRAINT emp_emp_no_pk PRIMARY REY,
+
+    ename   VARCHAR2(15),
+
+    salary  NUMBER(8,2),
+
+    mgr_no  NUMBER(2));
+
+ALTER TABLE emp ADD CONSTRAINT emp_mgr_fk
+
+   FOREIGN KEY (mgr_no)
+
+   REFERENCES emp(emp_no)
+
+   ON DELETE SET NULL;
+
+ALTER TABLE emp
+
+    DISABLE CONSTRAINT emp_emp_no_pk
+
+    CASCADE;
+
+ALTER TABLE emp
+
+    ENABLE CONSTRAINT emp_emp_no_pk;
+
+
+Which two statements are true after execution?
+
+
+A.The foreign key constraint will be enabled and IMMEDIATE
+
+B.The foreign key constraint will be enabled and DEFERRED
+
+C.The primary key constraint will be enabled and DEFERRED
+
+D.The foreign key constraint will be disabled.
+E.The primary key constraint will be enabled and IMMEDIATE
+ 
+
+正确答案是 D,E， 回答正确
+24
+Which three statements are true about GLOBAL TEMPORARY TABLES?
+
+
+A.Any GLOBAL TEMPORARY TABLE rows existing at session termination will be deleted.
+B.A GLOBAL TEMPORARY TABLE's definition is available to multiple sessions.
+C.A TRUNCATE command issued in a session causes all rows in a GLOBAL TEMPORARY TABLE for the issuing session to be deleted.
+D.GLOBAL TEMPORARY TABLE space allocation occurs at session start.
+E.A DELETE command on a GLOBAL TEMPORARY TABLE cannot be rolled back.
+F.GLOBAL TEMPORARY TABLE rows inserted by a session are available to any other session whose user has been granted select on the table. 
+
+正确答案是 A,B,C， 你的答案是 B,C,D。你答错了
+25
+Examine the description of the EMPLOYEES table:
+
+
+
+Name                    Null?          Type
+
+---------------------- --------------- -----------------
+
+EMP_ID                  NOT NULL        NUMBER
+
+EMP_NAME                                VARCHAR2(10)
+
+DEPT_ID                                 NUMBER(2)
+
+SALARY                                  NUMBER(8,2)
+
+JOIN_DATE                               DATE
+
+
+NLS_DATE_FORMAT is set to DD-MON-YY.
+
+
+Which query requires explicit data type conversion?
+
+A.SELECT salary + '120.50' FROM employees;
+
+B.SELECT join_date FROM employees WHERE join_date > '10-02-2018'
+
+C.SELECT join_date || ' ' || salary FROM employees;
+
+D.SELECT join_date + '20' FROM employees;
+
+E.SELECT SUBSTR(join_date, 1, 2) - 10 FROM employees;
+
+正确答案是 B， 你的答案是 A。你答错了
+26
+The STORES table has a column START_DATE of data type DATE, containing the date the row was inserted.
+
+
+You only want to display details of rows where START_DATE is within the last 25 months.
+
+
+Which WHERE clause can be used?
+
+
+A.WHERE MONTHS_BETWEEN (SYSDATE, start_date) <= 25
+
+B.WHERE TO_NUMBER(start_date - SYSDATE) <= 25
+
+C.WHERE MONTHS_BETWEEN (start_date, SYSDATE) <= 25
+
+D.WHERE ADD_MONTHS(start_date, 25) <= SYSDATE
+
+正确答案是 A， 回答正确
+27
+Which two statements are true about the WHERE and HAVING clauses in a SELECT statement?
+
+
+A.The HAVING clause can be used with aggregating functions in subqueries.
+B.The WHERE clause can be used to exclude rows after dividing them into groups.
+C.WHERE and HAVING clauses can be used in the same statement only if applied to different table columns.
+D.The WHERE clause can be used to exclude rows before dividing them into groups.
+E.Aggregating functions and columns used in HAVING clauses must be specified in the SELECT list of a query.
+正确答案是 D,E， 回答正确
+
+28
+Examine this SQL statement:
+
+UPDATE orders o
+      SET customer_name =
+           (SELECT cust_last_name
+                FROM customers
+            WHERE customer_id = o.customer_id);
+
+Which two are true?
+
+A.The subquery is not a correlated subquery.
+B.The UPDATE statement executes successfully even if the subquery selects multiple rows.
+C.All existing rows in the ORDERS table are updated.
+D.The subquery is executed for every updated row in the ORDERS table.
+E.The subquery is executed before the UPDATE statement is executed.
+正确答案是 C,E， 你的答案是 B,E。你答错了
+
+29
+Examine the description of the BooKs table:
+
+
+
+Name                    Null?          Type
+
+---------------------- --------------- -----------------
+
+TRANSACTION_ID          NOT NULL        VARCHAR2(6)
+
+TRANSACTION_DATE                        DATE
+
+AMOUNT                                  NUMBER(10,2)
+
+CUSTOMER_ID                             VARCHAR2(6)
+
+
+The table has 100 rows.
+
+
+Examine this sequence of statements issued in a new session:
+
+
+
+INSERT INTO books VALUES ('ADV112', 'Adventures of Tom Sawyer', NULL, NULL);
+
+SAVEPOINT a;
+
+DELETE FROM books ;
+
+ROLLBACK TO SAVEPOINT a;
+
+ROLLBACK;
+
+
+Which two statements are true?
+
+A.The second ROLLBACK command does nothing.
+B.The second ROLLBACK command undoes the insert.
+C.The first ROLLBACK command restores the 101 rows that were deleted and commits the inserted row
+
+D.Tho first ROLLBACK command restores the 101 rows that were deleted leaving the inserted row still to be committed.
+E.The second ROLLBACK command replays the delete.
+正确答案是 B,D， 你的答案是 D,E。你答错了
+30
+Evaluate these commands which execute successfully:
+
+
+
+CREATE SEQUENCE ord_seq
+
+   INCREMENT BY 1
+
+   START WITH
+
+   MAXVALUE 100000
+
+   CYCLE
+
+   CACHE 5000;
+
+
+
+CREATE TABLE ord_items (
+
+   ord_no       NUMBER(4) DEFAULT ord_seq.NEXTVAL NOT NULL,
+
+   item_no     NUMBER(3),
+
+   qty         NUMBER(3),
+
+   expiry_date DATE,
+
+   CONSTRAINT it_pk PRIMARY KEY (ord_no, item_no) ,
+
+   CONSTRAINT ord_fk FOREIGN KEY (ord_no) REFERENCES orders (ord_no));
+
+
+Which two statements are true about the ORD_ITEMS table and the ORD_SEQ sequence?
+
+
+A.Sequence ORD_SEQ is guaranteed not to generate duplicate numbers.
+B.If sequence ORD_SEQ is dropped then the default value for column ORD_NO will be NULL for rows inserted into ORD_ITEMS.
+C.Column ORD_NO gets the next number from sequence ORD_SEQ whenever a row is inserted into ORD_ITEMS and no explicit value is given for ORD_NO.
+D.Sequence ORD_SEQ cycles back to 1 after every 5000 numbers and can cycle 20 times.
+E.Any user inserting rows into table ORD_ITEMS must have been granted aces to sequence ORD_SEQ.
+正确答案是 B,C， 你的答案是 C,E。你答错了
+31
+The PRODUCT_INFORMATION table has a UNIT_PRICE column of data type NUMER(8,2).
+
+
+Evaluate this SQL statement:
+
+
+
+SELECT TO_CHAR(unit_price, '$9,999') FROM product_information;
+
+
+Which two statements are true about the output?
+
+
+A.A row whose UNIT_PRICE column contains the value 1023.99 will be displayed as $1,024.
+B.A row whose UNIT_PRICE column contains the value 10235.99 will be displayed as $1,023.
+C.A row whose UNIT_PRICE column contains the value 10235.99 will be displayed as ######.
+D.A row whose UNIT_PRICE column contains the value 1023.99 will be displayed as $1,023.
+E.A row whose UNIT_PRICE column contains the value 10235.99 will be displayed as $1,0236.
+正确答案是 A,C， 回答正确
+32
+Examine the description of the CUSTOMERS table:
+
+
+
+Name                    Null?          Type
+
+---------------------- --------------- -----------------
+
+CUST_ID                 NOT NULL        VARCHAR2(6)
+
+FIRST_NAME                              VARCHAR2(50)
+
+LAST_NAME               NOT NULL        VARCHAR2(50)
+
+ADDRESS                                 VARCHAR2(50)
+
+CITY                                    VARCHAR2(25)
+
+
+You want to display details of all customers who reside in cities starting with the letter D followed by at least two characters.
+
+
+Which query can be used?
+
+
+A.SELECT * FROM customers WHERE city LIKE 'D__%';
+
+B.SELECT * FROM customers WHERE city = 'D__%';
+
+C.SELECT * FROM customers WHERE city = '%D__';
+
+D.SELECT * FROM customers WHERE city LIKE 'D__';
+
+正确答案是 A， 回答正确
+33
+Which two are true about a SQL statement using SET operators such as UNION?
+
+
+A.The data type of each column returned by the second query must be implicitly convertible to the data type of the corresponding column returned by the first query.
+B.The data type of each column returned by the second query must exactly match the data type of the corresponding column returned by the first query.
+C.The data type group of each column returned by the second query must match the data type group of the corresponding column returned by the first query.
+D.The number, but not names, of columns must be identical for all SELECT statements in the query.
+E.The names and number of columns must be identical for all SELECT statements in the query.
+正确答案是 B,D， 回答正确
+34
+Which two statements are true regarding the UNION and UNION ALL operators?
+
+
+A.The output is sorted by the UNION ALL operator.
+B.The number of columns selected in each SELECT statement must be identical.
+C.Duplicates are eliminated automatically by the UNION ALL operator.
+D.NULLS are not ignored during duplicate checking.
+E.The names of columns selected in each SELECT statement must be identical.
+正确答案是 C,D， 你的答案是 B,D。你答错了
+35
+Examine the description of the EMPLOYEES table:
+
+
+
+Name                    Null?          Type
+
+---------------------- --------------- -----------------
+
+EMP_ID                   NOT NULL       NUMBER
+
+EMP_NAME                                VARCHAR2(40)
+
+DEPT_ID                                 NUMBER(2)
+
+SALARY                                  NUMBER(8,2)
+
+JOIN_DATE                               DATE
+
+
+Which query is valid?
+
+
+A.SELECT dept_id, join_date, SUM(salary) FROM employees GROUP BY dept_id, join_date;
+
+B.SELECT dept_id, MAX(AVG(salary)) FROM employees GROUP BY dept_id;
+
+C.SELECT dept_id, AVG(MAX(salary)) FROM employees GROUP BY dept_id;
+
+D.SELECT dept_id, join_date, SUM(salary) FROM employees GROUP BY dept_id;
+
+正确答案是 A， 回答正确
+36
+Which two statements are true about INTERVAL data types?
+
+
+A.INTERVAL DAY TO SECOND columns support fractions of seconds.
+B.INTERVAL YEAR TO MONTH columns support yearly intervals.
+C.INTERVAL YEAR TO MONTH columns only support monthly intervals within a range of years.
+D.INTERVAL YEAR TO MONTH columns only support monthly intervals within a single year
+
+E.The value in an INTERVAL DAY TO SECOND column can be copied into an INTERVAL YEAR TO MONTH column.
+F.The YEAR field in an INTERVAL YEAR TO MONTH column must be a positive value.
+正确答案是 A,B， 回答正确
+37
+Which two statements are true about a full outer join?
+
+
+A.It includes rows that are returned by a Cartesian product.
+B.It returns matched and unmatched rows from both tables being joined.
+C.It includes rows that are returned by an inner join.
+D.It returns only unmatched rows from both tables being joined.
+E.The Oracle join operator (+) must be used on both sides of the join condition in the WHERE clause.
+正确答案是 B,E， 你的答案是 B,C。你答错了
+
+38
+Which three statements are true about performing Data Manipulation Language (DML) operations on a view in an Oracle Database?
+
+A.Views cannot be used to query rows from an underlying table if the table has a PRIMARY KEY and the PRIMARY KEY columns are not referenced in the defining query of the view.
+B.Views cannot be used to add rows to an underlying table if the table has columns with NOT NULL constraints lacking default values which are not referenced in the defining query of the view.
+C.Views cannot be used to add or modify rows in an underlying table if the defining query of the view contains aggregating functions.
+D.Views cannot be used to add or modify rows in an underlying table if the defining query of the view contains the DISTINCT keyword.
+E.Insert statements can always be done on a table through a view.
+F.The WITH CHECK clause has no effect when deleting rows from the underlying table through the view.
+正确答案是 A,C,D， 你的答案是 B,C,D。你答错了
+【备注】群里沟通，答案是BCD
+
+39
+Which two are true about the WITH GRANT OPTION clause?
+
+
+A.The grantee must have the GRANT ANY OBJECT PRIVILEGE system privilege to use this option.
+B.It can be used to pass on privileges to other users by the grantee.
+C.It cannot be used to pass on privileges to PUBLIC by the grantee.
+D.It can be used when granting privileges to roles.
+E.It can be used for system and object privileges.
+F.The grantee can grant the object privilege to any user in the database, with or without including this option.
+正确答案是 B,F， 你的答案是 B,C,F。你答错了
+40
+Which three are true about privileges and roles?
+
+
+A.A role is owned by the user who created it.
+B.All roles are owned by the SYS schema.
+C.System privileges always set privileges for an entire database.
+D.PUBLIC acts as a default role granted to every user in a database.
+E.PUBLIC can be revoked from a user.
+F.A user has all object privileges for every object in their schema by default.
+G.A role can contain a combination of several privileges and roles.
+正确答案是 C,F,G， 回答正确
+41
+Which two are true about the data dictionary?
+
+
+A.The data dictionary is constantly updated to reﬂect changes to database objects, permissions, and data.
+B.The SYS user owns all base tables and user-accessible views in the data dictionary.
+C.All user actions are recorded in the data dictionary.
+D.All users have permissions to access all information in the data dictionary by default.
+E.Base tables in the data dictionary have the prefix DBA_ .
+正确答案是 A,B， 回答正确
+42
+The CUSTOMERS table has a CUST_CREDIT_LIMIT column of data type NUMBER.
+
+
+Which two queries execute successfully?
+
+
+A.SELECT NVL2(cust_credit_limit, TO_CHAR(cust_credit_limit * .15), 'Not Available') FROM customers;
+
+B.SELECT NVL2(cust_credit_limit * .15, 'Not Available') FROM customers;
+
+C.SELECT NVL(cust_credit_limit * .15, 'Not Available') FROM customers;
+
+D.SELECT To_CHAR(NVL(cust_credit_limit * .15, 'Not Available')) FROM customers;
+
+E.SELECT NVL(TO_CHAR(cust_credit_limit * .15), 'Not Available') FROM customers;
+
+正确答案是 A,E， 回答正确
+43
+Examine this business rule:
+
+
+
+Each student can work on multiple projects and each project can have multiple students.
+
+
+You must design an Entity Relationship (ER) model for optimal data storage and allow for generating reports in this format:
+
+
+
+STUDENT_ID   FIRST_NAME   LAST_NAME   PROJECT_ID   PROJECT_NAME   PROJECT_TASK
+
+
+Which two statements are true?
+
+
+A.PROJECT_ID must be the primary key in the PROJECTS entity and foreign key in the STUDENTS entity.
+B.The ER must have a many to many relationship between the STUDENTS and PROJECTS entities that must be resolved into 1-to-many relationships.
+C.STUDENT_ID must be the primary key in the STUDENTS entity and foreign key in the PROJECTS entity.
+D.The ER must have a 1-to-many relationship between the STUDENTS and PROJECTS entities.
+E.An associative table must be created with a composite key of STUDENT_ID and PROJECT_ID, which is the foreign key liked to the STUDENTS and PROJECTS entities.
+正确答案是 A,C， 回答正确
+
+44
+Examine the description of the CUSTOMRS table:
+
+Name                    Null?          Type
+---------------------- --------------- -----------------
+CUST_ID                 NOT NULL        VARCHAR2(2)
+CUST_LAST_NAME                          VARCHAR2(30)
+CITY                                    VARCHAR2(10)
+CUSTT_CREDIT_LIMIT                      NUMBER(6,2)
+
+You need to display last names and credit limits of all customers whose last name starts with A or B in lower or upper case, and whose credit limit is below 1000.
+Examine this partial query:
+SELECT cust_last_name, cust_credit_limit FROM customers
+Which two WHERE conditions give the required result?
+
+A.WHERE UPPER(cust_last_name) BETWEEN UPPER('A%' AND 'B%')
+      AND ROUND(cust_credit_limit) < 1000;
+B.WHERE (UPPER(cust_last_name) LIKE INITCAP('A') OR UPPER(cust_last_name) LIKE
+INITCAP('B')) AND ROUND(cust_credit_limit) < ROUND(1000);
+C.WHERE UPPER(cust_last_name) IN ('A%', 'B%')
+      AND cust_credit_limit < 1000;
+D.WHERE (INITCAP(cust_last_name) LIKE 'A%' OR INITCAP(cust_last_name) LIKE 'B%')
+      AND cust_credit_limit < 1000;
+E.WHERE (UPPER(cust_last_name) LIKE 'A%' OR UPPER(cust_last_name) LIKE 'B%')
+      AND ROUND(cust_credit_limit) < 1000;
+正确答案是 D,E
+
+45
+Which three statements are true about time zones, date data types, and timestamp data types in an Oracle database?
+
+
+A.The DBTIMEZONE function can return an offset from Universal Coordinated Time (UTC).
+B.The SESSIONTIMEZONE function can return an offset from Universal Coordinated Time (UTC).
+C.A TIMESTAMP data type column contains information about year, month, and day.
+D.A TIMESTAMP WITH LOCAL TIMEZONE data type column is stored in the database using the time zone of the session that inserted the row.
+E.The CURRENT_TIMESTAMP function returns data without time zone information.
+正确答案是 B,C,D， 你的答案是 A,C,D。你答错了
+
+46
+Which two statements are true about transactions in the Oracle Database server?
+
+A.A user can always see uncommitted updates made by the same user in a different session.
+B.A session can always see uncommitted updates made by itself.
+C.A Data Definition Language (DDL) statement does a COMMIT automatically only for the data dictionary updates caused by the DDL.
+D.Data Manipulation Language (DML) statements always start a new transaction.
+E.If a session has an uncommitted transaction, then a DDL statement issues a COMMIT before starting a new transaction.
+F.An uncommitted transaction commits automatically if the user exits SQL*Plus.
+正确答案是 B,F， 你的答案是 B,E。你答错了
+【解析F】正常退出sqlplus事务是自动提交；异常退出sqlplus,事务才会回滚。
+
+47
+Which two statements are true about the DUAL table?
+
+A.It can display multiple rows and columns.
+B.It can be used to display only constants or pseudo columns.
+C.It can be accessed only by the SYS user.
+D.It consists of a single row and single column of VARCHAR2 data type.
+E.It can be accessed by any user who has the SELECT privilege in any schema.
+F.It can display multiple rows but only a single column.
+正确答案是 D,E， 回答正确
+
+48
+Which three statements are true about indexes and their administration in an Oracle database?
+
+A.A DROP INDEX statement always prevents updates to the table during the drop operation.
+B.A UNIQUE and non-unique index can be created on the same table column.
+C.An INVISIBLE index is not maintained when Data Manipulation Language (DML) is performed on its underlying table.
+D.An index can be created as part of a CREATE TABLE statement.
+E.If a query filters on an indexed column then it will always be used during execution of the query.
+F.A descending index is a type of function-based index.
+正确答案是 B,D,F， 回答正确
+【解析】B：12c开始可以同时创建unique和non-unique，但是只能用其中的一个。
+
+49
+Which three statements are true about multiple row subqueries?
+
+
+A.They cannot contain a subquery.
+B.They can contain GROUP BY clauses.
+C.They can return multiple columns.
+D.Two or more values are always returned from the subquery.
+E.They can contain HAVING clauses.
+正确答案是 B,C,E， 回答正确
+50
+Which three statements are true about Structured Query Language (SQL)?
+
+
+A.It is the only language that can be used for both relational and object-oriented databases.
+B.It guarantees atomicity, consistency, isolation, and durability (ACID) features.
+C.It is used to define encapsulation and polymorphism for a relational table.
+D.It requires that data be contained in hierarchical data storage.
+E.It best supports relational databases.
+F.It provides independence for logical data structures being manipulated from the underlying physical data storage.
+正确答案是 C,E,F， 回答正确
+51
+You create a table by using this command:
+
+
+
+CREATE TABLE rate_list (rate NUMBER(6,2));
+
+
+Which two are true about executing statements?
+
+
+A.INSERT INTO rate_list VALUES (-.9) inserts the value as -.9. 
+
+B.INSERT INTO rate_list VALUES (0.999) produces an error. 
+
+C.INSERT INTO rate_list VALUES (-99.99) inserts the value as 99.99. 
+
+D.INSERT INTO rate_list VALUES (10) produces an error. 
+
+E.INSERT INTO rate_list VALUES (0.551) inserts the value as .55. 
+
+F.INSERT INTO rate_list VALUES (87654.556) inserts the value as 87654.6. 
+
+正确答案是 A,E， 回答正确
+52
+Which two statements are true about date/time functions in a session where NLS_DATE_FORMAT is set to DD-MON-YY HH24:MI:SS?
+
+
+A.SYSDATE and CURRENT_DATE return the current date and time set for the operating system of the database server.
+B.SYSDATE can be used in expressions only if the default date format is DD-MON-RR.
+C.SYSDATE can be queried only from the DUAL table.
+D.CURRENT_TIMESTAMP returns the same date as CURRENT_DATE.
+E.CURRENT_DATE returns the current date and time as per the session time zone.
+F.CURRENT_TIMESTAMP returns the same date and time as SYSDATE with additional details of factional seconds.
+正确答案是 E,F， 你的答案是 D,E,F。你答错了
+53
+Examine this SQL statement:
+
+
+
+SELECT cust_id, cust_last_name "Last Name"
+
+    FROM customers
+
+  WHERE country_id = 10
+
+   UNION
+
+SELECT cust_id CUST_NO, cust_last_name
+
+   FROM customers
+
+  WHERE country_id = 30
+
+
+ldentify three ORDER BY clauses, any one of which can complete the query successfully.
+
+A.ORDER BY "Last Name"
+ 
+
+B.ORDER BY 2, cust_id
+ 
+
+C.ORDER BY "CUST_NO"
+ 
+
+D.ORDER BY CUST_NO
+ 
+
+E.ORDER BY 2,1
+ 
+
+正确答案是 A,B,E， 回答正确
+54
+What is true about non-equijoin statement performance?
+
+
+A.Table aliases can improve performance.
+B.The join syntax used makes no difference to performance.
+C.The BETWEEN condition always performs better than using the >= and <= conditions.
+D.The Oracle join syntax performs better than the SQL:1999 compliant ANSI join syntax.
+E.The BETWEEN condition always performs less well than using the >= and <= conditions.
+正确答案是 A,B， 回答正确
+55
+View the Exhibit and examine the structure of the PRODUCTS table.
+
+
+Which two tasks require subqueries?
+
+
+A.Display the number of products whose PROD_LIST_PRICE is more than the average PROD_LIST_PRICE.
+B.Display the total number of products supplied by supplier 102 which have a product status of obsolete.
+C.Display suppliers whose PROD_LIST_PRICE is less than 1000.
+D.Display the minimum PROD_LIST_PRICE for each product status.
+E.Display products whose PROD_MIN_PRICE is more than the average PROD_LIST_PRICE of all products, and whose status is orderable.
+正确答案是 A,B， 回答正确
+56
+Examine the description of the TRANSACTIONS table:
+
+
+
+Name                    Null?          Type
+
+---------------------- --------------- -----------------
+
+TRANSACTION_ID          NOT NULL        VARCHAR2(6)
+
+TRANSACTION_DATE                        DATE
+
+AMOUNT                                  NUMBER(10,2)
+
+CUSTOMER_ID                             VARCHAR2(6)
+
+
+Which two SQL statements execute successfully?
+
+
+A.SELECT customer_id AS "CUSTOMER-ID", transaction_date AS "DATE", amount + 100 DUES FROM transactions;
+ 
+
+B.SELECT customer_id AS "CUSTOMER-ID", transaction_date AS DATE, amount + 100 "DUES" FROM transactions;
+ 
+
+C.SELECT customer_id AS CUSTOMER-ID, transaction_date AS TRANS_DATE, amount + 100 "DUES AMOUNT" FROM transactions;
+ 
+
+D.SELECT customer_id AS 'CUSTOMER-ID', transaction_date AS DATE, amount + 100 'DUES' FROM transactions;
+ 
+
+E.SELECT customer_id CUSTID, transaction_date TRANS_DATE, amount + 100 DUES FROM transactions;
+ 
+
+正确答案是 A,E， 回答正确
+57
+The EMPLOYEES table contains columns EMP_ID of data type NUMBER and HIRE_DATE of data type DATE.
+
+
+You want to display the date of the first Monday after the completion of six months since hiring.
+
+
+The NLS_TERRITORY parameter is set to AMERICA in the session and, therefore, Sunday is the first day of the week.
+
+
+Which query can be used?
+
+
+A.SELECT emp_id, ADD_MONTHS(hire_date, 6), NEXT_DAY('MONDAY') FROM employees;
+ 
+
+B.SELECT emp_id, NEXT_DAY(ADD_MONTHS(hire_date, 6), 1) FROM employees;
+ 
+
+C.SELECT emp_id, NEXT_DAY(ADD_MONTHS(hire_date, 6), 'MONDAY') FROM employees;
+ 
+
+D.SELECT emp_id, NEXT_DAY(MONTHS_BETWEEN(hire_date, SYSDATE), 6) FROM employees;
+ 
+
+正确答案是 C， 回答正确
+58
+Examine this description of the PRODUCTS table:
+
+
+
+Name                    Null?          Type
+
+---------------------- --------------- -----------------
+
+PROD_ID                 NOT NULL        VARCHAR2(6)
+
+QUANTITY                                NUMBER(8,2)
+
+PRICE                                   NUMBER(10,2)
+
+EXPIRY_DATE                             DATE
+
+
+Rows exist in this table with data in all the columns. You put the PRODUCTS table in read- only mode.
+
+
+Which three commands execute successfully on PRODUCTS?
+
+
+A.DROP TABLE products;
+ 
+
+B.ALTER TABLE products SET UNUSED (expiry_date);
+ 
+
+C.AITER TABLE products DROP COLUMN expiry_date;
+ 
+
+D.CREATE INDEX price_idx ON products (price);
+ 
+
+E.TRUNCATE TABLE products;
+ 
+
+F.ALTER TABLE products DROP UNUSED COLUMNS;
+ 
+
+正确答案是 A,D,F， 回答正确
+59
+Examine this SQL statement:
+
+
+
+DELETE FROM employees e
+
+ WHERE EXISTS
+
+    (SELECT 'dummy'
+
+        FROM emp_history 
+
+      WHERE employee_id = e.employee_id);
+
+
+Which two are true?
+
+
+A.The DELETE statement executes successfully even if the subquery selects multiple rows.
+B.The subquery is executed before the DELETE statement is executed.
+C.The subquery is executed for every row in the EMPLOYEES table.
+D.All existing rows in the EMPLOYEES table are deleted.
+E.The subquery is not a correlated subquery.
+正确答案是 A,B， 回答正确
+60
+Which three are true about dropping columns from a table?
+
+
+A.A primary key column cannot be dropped.
+B.A column can be removed only if it contains no data.
+C.A column that is referenced by another column in any other table cannot be dropped.
+D.A column must be set as unused before it is dropped from a table.
+E.Multiple columns can be dropped simultaneously using the ALTER TABLE command.
+F.A column drop is implicitly committed.
+正确答案是 C,E,F， 回答正确
+61
+Examine the description of the SALES table.
+
+
+Name                    Null?          Type
+
+---------------------- --------------- -----------------
+
+PRODUCT_ID              NOT NULL        NUMBER(10)
+
+CUSTOMER_ID             NOT NULL        NUMBER(10)
+
+TIME_ID                 NOT NULL        DATE
+
+CHANNEL_ID              NOT NULL        NUMBER(5)
+
+PROMO_ID                NOT NULL        NUMBER(5)
+
+QUANTITY_SOLD           NOT NULL        NUMBER(10,2)
+
+PRICE                                   NUMBER (10,2)
+
+AMOUNT_SOLD             NOT NULL        NUMBER(10,2)
+
+
+The SALES table has 55,000 rows.
+
+
+Examine this statement:
+
+
+
+CREATE TABLE sales1 (prod_id, cust_id, quantity_sold, price)
+
+AS
+
+SELECT product_id, customer_id, quantity_sold, price
+
+    FROM sales
+
+    WHERE 1 = 1;
+
+
+Which two statements are true?
+
+
+A.SALES1 is created with no rows.
+B.SALES1 is created with 1 row.
+C.SALES1 is created with 55,000 rows.
+D.SALES1 has PRIMARY KEY and UNIQUE constraints on any selected columns which had those constraints in the SALES table.
+E.SALES1 has NOT NULL constraints on any selected columns which had those constraints in the SALES table. 
+
+正确答案是 C,E， 回答正确
+62
+Which two statements are true about the COUNT function?
+
+
+A.COUNT(inv_amt)returns the number of rows in a table including rows with NULL in the INV_AMT column.
+B.COUNT(*) returns the number of rows in a table including duplicate rows and rows containing NULLs in any column.
+C.COUNT(DISTINCT inv_amt) returns the number of rows excluding rows containing duplicates and NULLs in the INV_AMT column.
+D.It can only be used for NUMBER data types.
+E.A SELECT statement using the COUNT function with a DISTINCT keyword cannot have a WHERE clause.
+正确答案是 B,C， 回答正确
+63
+Which three statements are true about defining relations between tables in a relational database?
+
+
+A.Every primary or unique key value must refer to a matching foreign key value.
+B.Primary key columns allow null values.
+C.Every foreign key value must refer to a matching primary or unique key value.
+D.Foreign key columns allow null values.
+E.Unique key columns allow null values.
+正确答案是 A,C,E， 你的答案是 C,D,E。你答错了
+64
+Which three statements are true about the Oracle join and ANSI join syntax?
+
+
+A.The Oracle join syntax performs less well than the SQL:1999 compliant ANSI join syntax.
+B.The Oracle join syntax only supports right outer joins.
+C.The Oracle join syntax performs better than the SQL: 1999 compliant ANSI join syntax.
+D.The SQL:1999 compliant ANSI join syntax supports natural joins.
+E.The Oracle join syntax supports creation of a Cartesian product of two tables.
+F.The SQL:1999 compliant ANSI join syntax supports creation of a Cartesian product of two tables.
+G.The Oracle join syntax supports natural joins.
+正确答案是 D,E,G， 你的答案是 E,F,G。你答错了
+65
+You want to write a query that prompts for two column names and the WHERE condition each time it is executed in a session but only prompts for the table name the first time it is executed.
+
+
+The variables used in your query are never undefined in your session.
+
+
+Which query can be used?
+
+
+A.SELECT &col1, &col2
+  FROM &&table
+  WHERE &condition;
+ 
+
+B.SELECT &&col1, &&col2
+  FROM &table
+  WHERE &&condition;
+ 
+
+C.SELECT '&&coll', '&&col2'
+  FROM &table
+  WHERE '&&condition' = '&cond';
+ 
+
+D.SELECT &&coll, &&col2
+  FROM &table
+  WHERE &&condition = &&cond;
+ 
+
+E.SELECT &coll, &col2
+  FROM "&table"
+  WHERE &condition;
+ 
+
+正确答案是 A， 回答正确
+66
+Examine this query:
+
+
+
+SELECT TRUNC(ROUND(156.00,-2),-1) FROM DUAL;
+
+
+What is the result?
+
+
+A.150
+
+B.200
+
+C.160
+
+D.100
+
+E.16
+
+正确答案是 B， 回答正确
+67
+Which two statements are true about Oracle synonyms?
+
+
+A.A synonym has an object number.
+B.A synonym can have a synonym.
+C.A synonym can be created on an object in a package.
+D.Any user can create a PUBLIC synonym.
+E.All private synonym names must be unique in the database.
+正确答案是 A,B， 回答正确
+68
+Examine this query:
+
+
+
+SELECT employee_id, first_name, salary
+
+   FROM employees
+
+  WHERE hire_date > '&1' ;
+
+
+Which two methods should you use to prevent prompting for a hire date value when this query is executed?
+
+
+A.Store the query in a script and pass the substitution value to the script when executing it.
+B.Execute the SET VERIFY ON command before executing the query.
+C.Use the DEFINE command before executing the query.
+D.Replace '&1' with '&&1' in the query.
+E.Use the UNDEFINE command before executing the query.
+F.Execute the SET VERIFY OFF command before executing the query.
+正确答案是 A,C， 你的答案是 A,F。你答错了
+69
+Examine the description of the PRODUCT_DETAILS table:
+
+
+
+Name                    Null?          Type
+
+---------------------- --------------- -----------------
+
+PRODUCT_ID              NOT NULL        NUMBER(2)
+
+PRODUCT_NAME            NOT NULL        VARCHAR2(25)
+
+PRODUCT_PRICE                           NUMBER(8,2)
+
+EXPIRY_DATE                             DATE
+
+
+Which two statements are true?
+
+
+A.PRODUCT_PRICE can be used in an arithmetic expression even if it has no value stored in it.
+B.PRODUCT_PRICE contains the value zero by default if no value is assigned to it.
+C.EXPIRY_DATE contains the SYSDATE by default if no date is assigned to it.
+D.PRODUCT_NAME cannot contain duplicate values.
+E.PRODUCT_ID can be assigned the PRIMARY KEY constraint.
+F.EXPIRY_DATE cannot be used in arithmetic expressions.
+正确答案是 A,E， 回答正确
+70
+Which two statements are true about the ORDER BY clause when used with a SQL statement containing a SET operator such as UNION?
+
+
+A.Each SELECT statement in the compound query must have its own ORDER BY clause.
+B.The first column in the first SELECT of the compound query with the UNION operator is used by default to sort output in the absence of an ORDER BY clause.
+C.Only column names from the first SELECT statement in the compound query are recognized.
+D.Each SELECT statement in the compound query can have its own ORDER BY clause.
+E.Column positions must be used in the ORDER BY clause.
+正确答案是 B,C， 回答正确
+71
+Which two are true about the MERGE statement?
+
+
+A.The WHEN NOT MATCHED clause can be used to specify the deletions to be performed.
+B.The WHEN NOT MATCHED clause can be used to specify the updates to be performed.
+C.The WHEN MATCHED clause can be used to specify the updates to be performed.
+D.The WHEN MATCHED clause can be used to specify the inserts to be performed.
+E.The WHEN NOT MATCHED clause can be used to specify the inserts to be performed. 
+
+正确答案是 C,E， 回答正确
+72
+Which three are true about the MERGE statement?
+
+ 
+
+
+A.It can update, insert, or delete rows conditionally in multiple tables.
+B.It can combine rows from multiple tables conditionally to insert into a single table.
+C.It can use subqueries to produce source rows.
+D.It can use views to produce source rows.
+E.It can update the same row of the target table multiple times.
+F.It can merge rows only from tables. 
+
+正确答案是 B,C,D， 回答正确
+73
+Examine the description of the PRODUCT_STATUS table:
+
+
+
+Name                   Null?           Type
+
+---------------------- --------------- -----------------
+
+PROD_ID                NOT NULL        NUMBER(2)
+
+STATUS                 NOT NULL        VARCHAR2(15)
+
+
+The STATUS column contains the values 'IN STOCK' or 'OUT OF STOCK' for each row.
+
+
+Which two queries will execute successfully?
+
+
+A.SELECT prod_id || q'('s not available)' 'CURRENT AVAILABILITY' FROM product_status WHERE status = 'OUT OF STOCK';
+ 
+
+B.SELECT prod_id || q"'s not available" FROM product_status WHERE status = 'OUT OF STOCK';
+ 
+
+C.SELECT prod_id "CURRENT AVAILABILITY" || q'('s not available)' FROM product_status WHERE status = 'OUT OF STOCK';
+ 
+
+D.SELECT prod_id || q'('s not available)' FROM product_status WHERE status = 'OUT OF STOCK';
+ 
+
+E.SELECT prod_id q's not available" FROM product_status WHERE status = 'OUT OF STOCK';
+ 
+
+F.SELECT prod_id || q'('s not available)' "CURENT AVAILABILITY" FROM product_status WHERE status = 'OUT OF STOCK';
+ 
+
+正确答案是 D,F， 回答正确
+74
+Examine this statement:
+
+
+
+SELECT 1 AS id, 'John' AS first_name
+
+   FROM dual
+
+  UNION
+
+SELECT 1, 'John' AS name
+
+   FROM dual
+
+ ORDER BY 1;
+
+
+What is returned upon execution?
+
+
+A.2 rows
+
+B.an error
+
+C.0 rows
+
+D.1 row
+
+正确答案是 D， 回答正确
+75
+Which two statements are true about conditional INSERT ALL?
+
+
+A.It cannot have an ELSE clause.
+B.Each WHEN condition is tested for each row returned by the subquery.
+C.Each row returned by the subquery can be inserted into only a single target table.
+D.The total number of rows inserted is always equal to the number of rows returned by the subquery.
+E.A single WHEN condition can be used for multiple INTO clauses.
+正确答案是 B,E， 回答正确
+76
+Which three statements are true about the DESCRIBE command?
+
+
+A.It can be used to display the structure of an existing view.
+B.It displays the PRIMARY KEY constraint for any column or columns that have that constraint.
+C.It can be used only from SQL * Plus.
+D.It displays the NOT NULL constraint for any columns that have that constraint.
+E.It displays all constraints that are defined for each column.
+F.It can be used from SQL Developer.
+正确答案是 A,D,F， 回答正确
+77
+Examine this query:
+
+
+
+SELECT 2 FROM dual d1 CROSS JOIN dual d2 CROSS JOIN dual d3;
+
+
+What is returned upon execution?
+
+
+A.1 row
+
+B.6 rows
+
+C.an error
+
+D.0 rows
+
+E.3 rows
+
+F.8 rows
+
+正确答案是 A， 回答正确
+78
+Which three are true about multitable INSERT statements?
+
+
+A.They can be performed on external tables using SQL*Loader.
+B.They can insert each computed row into more than one table.
+C.They can be performed only by using a subquery.
+D.They can be performed on views.
+E.They can be performed on remote tables.
+F.They can be performed on relational tables. 
+
+正确答案是 B,C,F， 你的答案是 B,D,F。你答错了
+79
+Which three statements are true about dropping and unused columns in an Oracle database?
+
+
+A.A column that is set to UNUSED still counts towards the limit of 1000 columns per table.
+B.A primary key column referenced by another column as a foreign key can be dropped if using the CASCADE option.
+C.An UNUSED column's space is reclaimed automatically when the block containing that column is next queried.
+D.A DROP COLUMN command can be rolled back.
+E.Partition key columns cannot be dropped.
+F.An UNUSED column's space is reclaimed automatically when the row containing that column is next queried. 
+
+正确答案是 A,C,E， 你的答案是 B,C,E。你答错了
+80
+Examine the description of the CUSTOMERS table:
+
+
+
+Name                   Null?           Type
+
+---------------------- --------------- -----------------
+
+CUST_ID                NOT NULL        NUMBER
+
+CUST_FIRST_NAME        NOT NULI        VARCHAR2(20)
+
+CUST_LAST_NAME         NOT NULL        VARCHAR2(30)
+
+CUST_INCOME_LEVEL                      VARCHAR2(30)
+
+CUST_CREDIT_LIMIT                      NUMBER
+
+
+For customers whose income level has a value, you want to display the first name and due amount as 5% of their credit limit. Customers whose due amount is null should not be displayed.
+
+
+Which query should be used?
+
+
+A.SELECT cust_first_name, cust_credit_limit * .05 AS DUE_AMOUNT
+  FROM customers
+ WHERE cust_income_level IS NOT NULL 
+   AND due_amount IS NOT NULL;
+ 
+
+B.SELECT cust_first_name, cust_credit_limit * .05 AS DUE_AMOUNT
+  FROM customers
+ WHERE cust_income_level IS NOT NULL
+   AND cust_credit_limit IS NOT NULL;
+ 
+
+C.SELECT cust_first_name, cust_credit_limit * .05 AS DUE_AMOUNT
+  FROM customers
+ WHERE cust_income_level != NULL
+   AND due_amount != NULL;
+ 
+
+D.SELECT cust_first_name, cust_credit_limit * .05 AS DUE_AMOUNT
+  FROM customers
+ WHERE cust_income_level != NULL
+   AND cust_credit_level != NULL;
+ 
+
+E.SELECT cust_first_name, cust_credit_limit * .05 AS DUE_AMOUNT
+  FROM customers
+ WHERE cust_income_level <> NULL 
+   AND due_amount <> NULL;
+ 
+
+正确答案是 B， 回答正确
+81
+Which four statements are true about constraints on Oracle tables?
+
+
+A.A FOREIGN KEY column can contain NULLS.
+B.A UNIQUE constraint can use a pre-existing index on the constrained column or columns.
+C.A CHECK constraint can refer to values in other rows.
+D.A PRIMARY KEY constraint can be added after a table has been created and populated.
+E.A column can have only one CHECK constraint.
+F.A NOT NULL constraint can be defined at the table level.
+G.A UNIQUE constraint permits NULLS.
+正确答案是 B,C,D,G， 回答正确
+82
+In which three situations does a new transaction always start?
+
+
+A.when issuing a SELECT FOR UPDATE statement after a CREATE TABLE AS SELECT statement was issued in the same session
+
+B.when issuing a CREATE INDEX statement after a CREATE TABLE statement completed successfully in the same session
+
+C.when issuing a CREATE TABLE statement after a SELECT statement was issued in the same session
+
+D.when issuing a TRUNCATE statement after a SELECT statement was issued in the same session
+
+E.when issuing a DML statement after a DML statement failed in the same session
+
+F.when issuing the first Data Manipulation Language (DML) statement after a COMIT or ROLLBACK statement was issued in the same session
+
+正确答案是 A,E,F， 你的答案是 A,B,F。你答错了
+83
+Which three actions can you perform by using the ORACLE_DATAPUMP access driver?
+
+
+A.Query data from an external table.
+B.Read data from an external table and load it into a table in the database.
+C.Read data from a table in the database and insert it into an external table.
+D.Execute DML statements on an external table.
+E.Create a directory object for a ﬂat file.
+F.Create a directory object for an external table.
+正确答案是 A,B,C， 回答正确
+84
+Which three actions can you perform only with system privileges?
+
+
+A.Access ﬂat files via a database, which are stored in an operating system directory.
+B.Use the WITH GRANT OPTION clause.
+C.Truncate a table in another schema.
+D.Execute a procedure in another schema.
+E.Query any table in a database.
+F.Log in to a database.
+正确答案是 A,E,F， 回答正确
+85
+Which two are true about granting privileges on objects?
+
+
+A.An object privilege can be granted to a role only by the owner of that object.
+B.The WITH GRANT OPTION clause can be used only by DBA users.
+C.The owner of an object acquires all object privileges on that object by default.
+D.A table owner must grant the REFERENCES privilege to allow other users to create FOREIGN KEY constraints using that table.
+E.An object privilege can be granted to' other users only by the owner of that object.
+正确答案是 C,D， 回答正确
+86
+BOOK_SEQ is an existing sequence in your schema.
+
+
+Which two CREATE TABLE commands are valid?
+
+ 
+
+
+A.CREATE TABLE bookings (
+ bk_id      NUMBER(4) NOT NULL DEFAULT book_seq.CURRVAL,
+ start_date DATE      NOT NULL,
+ end_date   DATE      DEFAULT SYSDATE) ;
+ 
+
+B.CREATE TABLE bookings (
+ bk_id      NUMBER(4) ,
+ start_date DATE      DEFAULT SYSDATE,
+ end_date   DATE      DEFAULT (end_date >= start_date));
+ 
+
+C.CREATE TABLE bookings (
+ bk_id      NUMBER(4) DEFAULT book_seq.NEXTVAL PRIMARY KEY,
+ start_date DATE      DEFAULT SYSDATE,
+ end_date   DATE      DEFAULT SYSDATE NOT NULL);
+ 
+
+D.CREATE TABLE bookings (
+ bk_id      NUMBER(4) DEFAULT book_seq.CURRVAL,
+ start_date DATE      DEFAULT SYSDATE,
+ end_date   DATE      DEFAULT start_date);
+ 
+
+E.CREATE TABLE bookings (
+ bk_id      NUMBER(4)  NOT NULL PRIMARY KEY,
+ start_date DATE       NOT NULL,
+ end_date   DATE       DEFAULT SYSDATE);
+ 
+
+正确答案是 C,E， 回答正确
+87
+You execute this command:
+
+
+
+TRUNCATE TABLE depts;
+
+
+Which two are true?
+
+
+A.It retains the indexes defined on the table.
+B.A ROLLBACK statement can be used to retrieve the deleted data.
+C.It always retains the space used by the removed rows.
+D.It retains the integrity constraints defined on the table.
+E.It drops any triggers defined on the table.
+F.A FLASHBACK TABLE statement can be used to retrieve the deleted data.
+正确答案是 A,D， 回答正确
+88
+Which statement is true about TRUNCATE and DELETE?
+
+
+A.You can never TRUNCATE a table if foreign key constraints will be violated.
+B.For tables with multiple indexes and triggers DELETE is faster than TRUNCATE .
+C.You can never DELETE rows from a table if foreign key constraints will be violated.
+D.For large tables TRUNCATE is faster than DELETE.
+正确答案是 D， 你的答案是 C。你答错了
+
+89
+Which two statements are true about TRUNCATE and DELETE?
+
+A.TRUNCATE leaves any indexes on the table in an UNUSABLE state.
+B.The result of a TRUNCATE can be undone by issuing a ROLLBACK.
+C.TRUNCATE can use a WHERE clause to determine which row(s) should be removed.
+D.DELETE can use a WHERE clause to determine which row(s) should be removed.
+E.The result of a DELETE can be undone by issuing a ROLLBACK.
+正确答案是 D,E， 回答正确
+
+90
+Which three are true about granting object privileges on tables, views, and sequences?
+
+
+A.DELETE can be granted on tables, views, and sequences.
+B.REFERENCES can be granted only on tables and views.
+C.INSERT can be granted on tables, views, and sequences.
+D.ALTER can be granted only on tables and sequences.
+E.UPDATE can be granted only on tables and views.
+F.SELECT can be granted only on tables and views.
+正确答案是 B,D,E， 回答正确
+91
+The SALES table has columns PROD_ID and QUANTITY_SOLD of data type NUMBER.
+
+
+Which two queries execute successfully?
+
+
+A.SELECT COUNT(prod_id) FROM sales WHERE quantity_sold > 55000 GROUP BY prod_id;
+ 
+
+B.SELECT prod_id FROM sales WHERE quantity_sold > 55000 GROUP BY prod_id HAVING COUNT(*) > 10;
+ 
+
+C.SELECT prod_id FROM sales WHERE quantity_sold > 5000 AND COUNT(*) > 10 GROUP BY prod_id HAVING COUNT(*) > 10;
+ 
+
+D.SELECT COUNT(prod_id) FROM sales GROUP BY prod_id WHERE quantity_sold > 55000;
+ 
+
+E.SELECT prod_id FROM sales WHERE quantity_sold > 55000 AND COUNT(*) > 10 GROUP BY COUNT(*) > 10;
+ 
+
+正确答案是 A,B， 回答正确
+92
+ Examine this partial command:
+
+
+
+CREATE TABLE cust (
+
+   cust_id      NUMBER(2),
+
+   credit_limit NUMBER (10)
+
+) ORGANIZATION EXTERNAL
+
+
+Which two clauses are required for this command to execute successfully?
+
+ 
+
+
+A.the ACCESS PARAMETERS clause
+
+B.the LOCATION clause
+
+C.the DEFAULT DIRECTORY clause
+
+D.the access driver TYPE clause
+
+E.the REJECT LIMIT clause
+
+正确答案是 B,C， 回答正确
+93
+Examine the data in the CUST_NAME column of the CUSTOMERS table:
+
+
+
+CUST_NAME
+
+-----------------------
+
+Renske Ladwig
+
+Jason Mallin
+
+Samuel McCain
+
+Allan MCEwen
+
+Irene Mikkilineni
+
+Julia Nayer
+
+
+You want to display the CUST_NAME values where the last name starts with Mc or MC. Which two WHERE clauses give the required result?
+
+
+A.WHERE SUBSTR(cust_name, INSTR(cust_name, ' ') + 1) LIKE 'Mc%'
+
+B.WHERE INITCAP(SUBSTR(cust_name, INSTR(cust_name, ' ') + 1)) IN ('MC%', 'Mc%)
+
+C.WHERE UPPER(SUBSTR(cust_name, INSTR(cust_name, ' ') + 1)) LIKE UPPER('MC%')
+
+D.WHERE INITCAP(SUBSTR(cust_name, INSTR(cust_name, ' ') + 1)) LIKE 'Mc%'
+
+E.WHERE SUBSTR(cust_name, INSTR(cust_name, ' ') + 1) LIKE 'Mc%' OR 'MC%'
+
+正确答案是 C,D， 你的答案是 D,E。你答错了
+94
+Which statement is true about the INTERSECT operator used in compound queries?
+
+
+A.Multiple INTERSECT operators are not possible in the same SQL statement.
+B.INTERSECT is of lower precedence than UNION or UNION ALL.
+C.It processes NULLs in the selected columns.
+D.It ignores NULLS.
+正确答案是 C， 回答正确
+95
+Which three actions can you perform on an existing table containing data?
+
+
+A.Add a new column as the table's first column.
+B.Define a default value that is automatically inserted into a column containing nulls.
+C.Change a DATE column containing data to a NUMBER data type.
+D.Change the default value of a column.
+E.Add a new NOT NULL column with a DEFAULT value.
+F.Increase the width of a numeric column.
+正确答案是 B,D,E， 回答正确
+96
+Which three privileges can be restricted to a subset of columns in a table?
+
+
+A.REFERENCES
+
+B.INDEX
+
+C.SELECT
+
+D.AITER
+
+E.UPDATE
+
+F.DELETE
+
+G.INSERT
+
+正确答案是 A,E,G， 回答正确
+97
+Which two statements are true about single row functions?
+
+
+A.CEIL : can be used for positive and negative numbers
+
+B.FLOOR : returns the smallest integer greater than or equal to a specified number
+
+C.TRUNC : can be used with NUMBER and DATE values
+
+D.CONCAT : can be used to combine any number of values
+
+E.MOD : returns the quotient of a division operation
+
+正确答案是 A,C， 回答正确
+98
+Which three are true about system and object privileges?
+
+
+A.Adding a foreign key constraint pointing to a table in another schema requires the REFERENCES object privilege.
+B.WITH GRANT OPTION cannot be used when granting an object privilege to PUBLIC.
+C.Adding a primary key constraint to an existing table in another schema requires a system privilege.
+D.WITH GRANT OPTION can be used when granting an object privilege to both users and roles.
+E.Revoking a system privilege that was granted with WITH ADMIN OPTION has a cascading effect.
+F.Revoking an object privilege that was granted with the WITH GRANT OPTION clause has a cascading effect.
+正确答案是 A,D,F， 回答正确
+99
+Which three statements are true about views in an Oracle Database?
+
+
+A.SELECT statement cannot contain a WHERE clause when querying a view containing a WHERE clause in its defining query.
+B.Views have no segment.
+C.Views have no object number.
+D.A view can be created that refers to a non-existent table in its defining query.
+E.Views can join tables only if they belong to the same schema.
+F.Rows inserted into a table using a view are retained in the table if the view is dropped.
+正确答案是 E， 你的答案是 B。你答错了
+100
+Which two statements are true about a self join?
+
+
+A.It can be a left outer join.
+B.It must be an equijoin.
+C.It can be an inner join.
+D.The join key column must have an index.
+E.It must be a full outer join.
+正确答案是 A,C， 回答正确
+101
+Which three statements are true about a self join?
+
+
+A.It can be an outer join.
+B.The ON clause must be used.
+C.The ON clause can be used.
+D.It must be an inner join.
+E.The query must use two different aliases for the table.
+F.It must be an equijoin.
+正确答案是 A,C,E， 回答正确
+102
+Which two statements are true about the results of using the INTERSECT operator in compound queries?
+
+
+A.Reversing the order of the intersected tables can sometimes affect the output.
+B.The number of columns in each SELECT in the compound query can be different.
+C.INTERSECT returns rows common to both sides of the compound query.
+D.INTERSECT ignores NULLS.
+E.Column names in each SELECT in the compound query can be different.
+正确答案是 C,E， 回答正确
+103
+Examine the description of the SALES1 table
+
+
+
+Name             Null?             Type
+
+---------------- --------------- -----------------
+
+SALES_ID         NOT NULL        NUMBER
+
+STORE_ID         NOT NULL        NUMBER
+
+ITEMS_ID                         NUMBER
+
+QUANTITY                         NUMBER
+
+SALES_DATE                       DATE
+
+
+SALES2 is a table with the same description as SALES1.
+
+
+Some sales data is duplicated in both tables.
+
+
+You want to display the rows from the SALES1 table which are not present in the SALES2 table.
+
+
+Which set operator generates the required output?
+
+
+A. MINUS
+
+B. UNION
+
+C. UNION ALL
+
+D. SUBTRACT
+
+E. INTERSECT
+
+正确答案是 A， 回答正确
+104
+ Examine this description of the PRODUCTS table:
+
+
+
+Name              Null?           Type
+
+---------------- --------------- -----------------
+
+PROD_ID           NOT NULL        NUMBER(2)
+
+QTY                               NUMBER(5, 2)
+
+COST                              NUMBER(8,2)
+
+
+You successfully execute this command:
+
+
+
+CREATE TABLE new_prices (prod_id NUMBER(2), price NUMBER(8,2));
+
+
+Which two statements execute without errors?
+
+
+A.MERGE INTO new_prices n
+ USING (SELECT * FROM products WHERE cost > 150) p
+ ON (n.prod_id = p.prod_id)
+ WHEN MATCHED THEN
+   DELETE WHERE (p.cost < 200)
+ WHEN NOT MATCHED THEN
+   INSERT (n.prod_id, n.price) VALUES (p.prod_id, p.cost*.01);
+B.MERGE INTO new_prices n
+ USING (SELECT * FROM products) p
+ WHEN MATCHED THEN
+   UPDATE SET n.price = p.cost*.01
+ WHEN NOT MATCHED THEN
+   INSERT (n.prod_id, n.price) VALUES (p.prod_id, cost*.01)
+ WHERE (p.cost < 200);
+C.MERGE INTO new_prices n
+ USING (SELECT * FROM products WHERE cost > 150) p
+ ON (n.prod_id = p.prod_id)
+ WHEN MATCHED THEN
+   UPDATE SET n.price = p.cost*.01
+   DELETE WHERE (p.cost < 200) ;
+D.MERGE INTO new_prices n
+ USING products P ON (p.prod_id = n.prod_id)
+ WHEN NOT MATCHED THEN
+   INSERT (n.prod_id, n.price) VALUES (p.prod_id, cost*.01)
+ WHERE (p.cost < 200) ;
+正确答案是 C,D， 回答正确
+105
+Which four statements are true regarding primary and foreign key constraints and the effect they can have on table data?
+
+
+A.A table can have only one primary key and one foreign key.
+B.The foreign key columns and parent table primary key columns must have the same names.
+C.A table can have only one primary key but multiple foreign keys.
+D.It is possible for child rows that have a foreign key to remain in the child table at the time the parent row is deleted.
+E.Only the primary key can be defined at the column and table level.
+F.It is possible for child rows that have a foreign key to be deleted automatically from the child table at the time the parent row is deleted.
+G.Primary key and foreign key constraints can be defined at both the column and table level.
+正确答案是 C,D,E,F， 回答正确
+再次尝试
+答题卡
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105
+正确 错误 待批阅 未做
+  只看错题
+确认提交
+您真的要提交吗？
+取消  确认提交
+考试结束
+考试已结束，您的试卷已提交，请点击下面的按钮查看结果！
+查看结果
+暂停
+考试已暂停，请尽快回来哦！
+继续考试
