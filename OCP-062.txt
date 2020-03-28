@@ -4465,6 +4465,12 @@ B.flashback logs
 C.user-managed backups of data files and control files 
 D.RMAN backups that are obsolete
 正确答案是 B,D
+【解析】
+快速恢复区域可以包含控制文件，联机重做日志，归档的重做日志，闪回日志和RMAN备份。
+恢复区域中的文件分为永久文件和临时文件。永久文件是数据库实例使用的活动文件。所有非永久文件都是临时文件。通常，Oracle数据库最终会在备份保留策略下删除已经过期的临时文件，或者删除已备份到磁带的临时文件。
+数据文件和控制文件属于永久文件不能删除，归档日志可以被删除，但是非快速恢复区的归档日志是不会被删除的。
+【官方手册】
+https://docs.oracle.com/en/database/oracle/oracle-database/12.2/bradv/configuring-rman-client-basic.html#GUID-302339EC-EE0F-45FB-9862-BB2BA138AA13
 
 355
 Which component resides in the System Global Area (SGA) of a database instance only in shared server connections?
@@ -4474,6 +4480,7 @@ B.PL/SQL Function Result Cache
 C.SQL Query Result Cache 
 D.Program Global Area
 正确答案是 A
+【解析】UGA部分在共享服务器模式下，是位于SGA中的Larger Pool里面，如果没有Larger Pool，将会放在Shared pool里面。
 
 356
 One of your databases supports an OLTP workload.
@@ -4492,3 +4499,7 @@ E.An uncommitted update to the SALES table was made more than 12 minutes before 
 F.An uncommitted delete to the SALES table was made more than 12 minutes before the query began.  
 G.An update was made to the SALES table before the query began.
 正确答案是 A,C,D
+【解析】
+ora-01555 快照过久错误出现在select语句检索undo段中数据块的前镜像时，由于前镜像被覆写，所以无法找到前镜像。当select语句检索数据块时，数据块的SCN高于select语句的SCN，select语句就要去检索undo段中保存的块的之前版本，也就是前镜像。
+前镜像被覆盖，是因为DML语句需要undo空间存放数据块被修改前的版本，但空间不足，因此覆盖了之前的前镜像。
+事务没有提交，前镜像不能被删除，因此检索没有提交事务的前镜像，不会出现01555.
