@@ -125,6 +125,8 @@ B.A data file can belong to only one tablespace.
 C.An extent cannot span data files. 
 D.The size of an Oracle data block in a data file should be the same as the size of an OS block.
 正确答案是 B,C
+【解析】A segment and all its extents are stored in one tablespace. Within a tablespace, a segment can include extents from more than one file; that is, the segment can span datafiles. However, each extent can contain data from only one datafile.
+【参考】https://docs.oracle.com/cd/B19306_01/server.102/b14220/logical.htm
 
 11
 Which two statements are true about the logical storage structure of an Oracle database? 
@@ -164,10 +166,11 @@ SCOTT’s password is TIGER. The service mane “HQ” is used to connect to the
 Which command would you execute to create the database link? 
 
 A.CREATE DATABASE LINK HQ USING ‘HQ’; 
-B.CREATE DATABASE LINK HQ CONNECT TO CXJRRENT_USER USING HQ’ S 
+B.CREATE DATABASE LINK HQ CONNECT TO CURRENT_USER USING ‘HQ’
 C.CREATE PUBLIC DATABASE LINK HQ CONNECT TO scott IDENTIFIED BY tiger USING ‘HQ’; 
 D.CREATE DATABASE LINK HQ CONNECT TO scott IDENTIFIED BY tiger USING ‘HQ’;
 正确答案是 B
+【网络答案】C
 
 15
 Examine the resources consumed by a database instance whose current Resource Manager plan is displayed.
@@ -245,12 +248,11 @@ C.There is no difference in the underlying mechanics of the startup whether the 
 D.Media recovery is required when the database is shut down by using either the immediate option or the abort option. 
 E.Instance recovery is not required if the database instance was shut down by using SHUTDOWN IMMEDIATE.
 正确答案是 E
+【参考】https://docs.oracle.com/cd/A87860_01/doc/server.817/a76956/start.htm#7871
 
 22
 Your database is open and the listener LISTNENER is up. You issue the command:
-
 LSNRCTL> RELOAD 
-
 What is the effect of reload on sessions that were originally established by listener? 
 
 A.Only sessions based on static listener registrations are disconnected.
@@ -416,6 +418,14 @@ C.Any existing statistics for the CUSTOMERS table are still available to the opt
 D.Statistics gathered on the CUSTOMERS table when schema stats are gathered are stored as pending statistics. 
 E.Statistics gathered on the CUSTOMERS table when database stats are gathered are stored as pending statistics.
 正确答案是 C,D,E
+【网络解析】Using Pending Statistics
+Assume many modifications have been made to the employees table since the last time statistics were
+gathered. To ensure that the cost-based optimizer is still picking the best plan, statistics should be gathered
+once again; however, the user is concerned that new statistics will cause the optimizer to choose bad plans
+when the current ones are acceptable. The user can do the following:
+EXEC DBMS_STATS.SET_TABLE_PREFS('hr', 'employees', 'PUBLISH', 'false');
+By setting the employees tables publish preference to FALSE, any statistics gather from now on will not be
+automatically published. The newly gathered statistics will be marked as pending.
 
 36
 In a recent Automatic Workload Repository (AWR) report for your database, you notice a high number of buffer busy waits. The database consists of locally managed tablespaces with free list managed segments.
@@ -466,9 +476,9 @@ D.All users except sys, system, and SCOTT
 Examine the following command:
 
 CREATE TABLE (prod_id number(4), 
-							Prod_name varchar2 (20), 
-							Category_id number(30), 
-							Quantity_on_hand number (3) INVISIBLE); 
+			Prod_name varchar2 (20), 
+			Category_id number(30), 
+			Quantity_on_hand number (3) INVISIBLE); 
 
 Which three statements are true about using an invisible column in the PRODUCTS table? 
 
@@ -504,7 +514,8 @@ D.It fails because no SQL *Loader control file location is specified.
 42
 To implement Automatic Management (AMM), you set the following parameters:
 When you try to start the database instance with these parameter settings, you receive the following error message:
-SQL > startup ORA-00824: cannot set SGA_TARGET or MEMORY_TARGET due to existing internal settings, see alert log for more information. 
+SQL > startup 
+ORA-00824: cannot set SGA_TARGET or MEMORY_TARGET due to existing internal settings, see alert log for more information. 
 Identify the reason the instance failed to start. 
 
 A.The PGA_AGGREGATE_TARGET parameter is set to zero. 
@@ -512,6 +523,9 @@ B.The STATISTICS_LEVEL parameter is set to BASIC.
 C.Both the SGA_TARGET and MEMORY_TARGET parameters are set. 
 D.The SGA_MAX_SIZE and SGA_TARGET parameter values are not equal.
 正确答案是 B
+【解析】STATISTICS_LEVEL = { ALL | TYPICAL | BASIC }，Default value：TYPICAL
+Setting the STATISTICS_LEVEL parameter to BASIC disables the collection of many of the important statistics required by Oracle Database features and functionality
+【参考】https://docs.oracle.com/en/database/oracle/oracle-database/12.2/refrn/STATISTICS_LEVEL.html#GUID-16B23F95-8644-407A-A6C8-E85CADFA61FF
 
 43
 You are the DBA supporting an Oracle 11g Release 2 database and wish to move a table containing several DATE, CHAR, VARCHAR2, and NUMBER data types, and the table’s indexes, to another tablespace.
@@ -611,6 +625,7 @@ D.Multiple non-RAC CDB instances can mount the same PDB as long as they are on t
 E.Patches are always applied at the CDB level. 
 F.A PDB can have a private undo tablespace.
 正确答案是 B,E
+【解析 NOT F】UNDO tablespace can NOT be local and stays on the CDB level.
 
 52
 What are two benefits of installing Grid Infrastructure software for a stand-alone server before installing and creating an Oracle database? 
@@ -843,15 +858,15 @@ E.Performance improves in a stretch cluster configuration by reading from a loca
 正确答案是 A,C
 
 71
-In your multitenant container database (CDB) containing pluggable database (PDBs), you granted the CREATE TABLE privilege to the common user C # # A_ADMIN in root and all PDBs. You execute the following command from the root container: 
-SQL > REVOKE create table FROM C # # A_ADMIN; 
+In your multitenant container database (CDB) containing pluggable database (PDBs), you granted the CREATE TABLE privilege to the common user C##A_ADMIN in root and all PDBs. You execute the following command from the root container: 
+SQL > REVOKE create table FROM C##A_ADMIN; 
 What is the result?
 
-A.It executes successfully and the CREATE TABLE privilege is revoked from C # # A_ADMIN in root only. 
+A.It executes successfully and the CREATE TABLE privilege is revoked from C##A_ADMIN in root only. 
 B.It fails and reports an error because the CONTAINER=ALL clause is not used.
-C.It excludes successfully and the CREATE TABLE privilege is revoked from C # # A_ADMIN in root and all PDBs. 
+C.It excludes successfully and the CREATE TABLE privilege is revoked from C##A_ADMIN in root and all PDBs. 
 D.It fails and reports an error because the CONTAINER=CURRENT clause is not used.
-E.It executes successfully and the CREATE TABLE privilege is revoked from C # # A_ADMIN in all PDBs.
+E.It executes successfully and the CREATE TABLE privilege is revoked from C##A_ADMIN in all PDBs.
 正确答案是 A
 
 72
@@ -1030,7 +1045,8 @@ You run a script that completes successfully using SQL*Plus that performs these 
 1.Creates a multitenant container database (CDB)
 2.Plugs in three pluggable databases (PDBs)
 3.Shuts down the CDB instance
-4.Starts up the CDB instance using STARTUP OPEN READ WRITE Which two statements are true about the outcome after running the script? 
+4.Starts up the CDB instance using STARTUP OPEN READ WRITE 
+Which two statements are true about the outcome after running the script? 
 
 A.The seed will be in mount state. 
 B.The seed will be opened read-only. 
@@ -1039,6 +1055,10 @@ D.The other PDBs will be in mount state.
 E.The other PDBs will be opened read-only. 
 F.The PDBs will be opened read/write.
 正确答案是 B,D
+【解析】
+B: The seed is always read-only.
+D: Pluggable databases can be started and stopped using SQL*Plus commands or the ALTER
+PLUGGABLE DATABASE command.
 
 84
 You plan to migrate your database from a File system to Automata Storage Management (ASM) on same platform.
@@ -1086,6 +1106,10 @@ B.One 64G flash cache file will be used.
 C.Two 64G flash cache files will be used. 
 D.Two 32G flash cache files will be used.
 正确答案是 A
+【解析】
+例子：
+db_flash_cache_file = /dev/raw/sda, /dev/raw/sdb, /dev/raw/sdc
+db_flash_cache_size = 32G, 32G, 64G
 
 88
 You support Oracle Database 12c Oracle Database 11g, and Oracle Database log on the same server.
@@ -1096,7 +1120,7 @@ A.The ASM compatibility attribute controls the format of the disk group metadata
 B.RDBMS compatibility together with the database version determines whether a database Instance can mount the ASM disk group.
 C.The RDBMS compatibility setting allows only databases set to the same version as the compatibility value, to mount the ASM disk group.
 D.The ASM compatibility attribute determines some of the ASM features that may be used by the Oracle disk group. 
-E.The ADVM compatibility attribute determines the ACFS features that may be used by the Oracle 10 g database.
+E.The ADVM compatibility attribute determines the ACFS features that may be used by the Oracle 10g database.
 正确答案是 A,B,D
 
 89
@@ -1268,10 +1292,10 @@ E.OMF may affect the location of the redo log files and archived log files.
 Examine the parameters for your database instance:
 
 optimizer_adaptive_reporting_only 		boolean 	FALSE
-optimizer_adaptive_statistics 				boolean 	FALSE
+optimizer_adaptive_statistics 			boolean 	FALSE
 optimizer_capture_sql_plan_baselines 	boolean 	FALSE
-optimizer_dynamic_sampling 						integer 	2
-optimizer_features_enable 						string 		12.1.0.1
+optimizer_dynamic_sampling 				integer 	2
+optimizer_features_enable 				string 		12.1.0.1
 
 Which three statements are true about the process of automatic optimization by using cardinality feedback? 
 
@@ -1350,7 +1374,30 @@ E.The buffers are being read into the buffer cache, but some other session is ch
 
 108
 You are connected using SQL* Plus to a multitenant container database (CDB) with SYSDBA privileges and execute the following sequence statements:
-【图片】
+
+SQL> CREATE PLUGGABLE DATABASE NEW_PDB ADMIN USER PDB_ADMIN IDENTIFIED BY SECRET;
+Pluggable database created.
+
+SQL> ALTER PLUGGABLE DATABASE NEW_PDB OPEN;
+Pluggable database altered.
+
+SQL> ALTER SESSION SET CONTAINER = NEW_PDB;
+Session altered.
+
+SQL> GRANT CONNECT TO PDB_ADMIN;
+Grant succeeded.
+
+SQL> CONNECT PDB_ADMIN/SECRET@LOCALHOST/NEW_PDB
+Connected.
+
+SQL> SELECT * FROM SESSION_PRIVS;
+PRIVILEGE
+------------------------------------------
+CREATE SESSION
+SET CONTAINER
+
+SQL> ALTER SESSION SET CONTAINER = PDB$SEED;
+
 What is the result of the last SET CONTAINER statement and why is it so?
 
 A.It succeeds because the PDB_ADMIN user has the required privileges. 
@@ -1406,7 +1453,15 @@ E.The DMU can report columns that are not represented in the converted character
 113
 You create a table with the PERIOD FOR clause to enable the use of the Temporal Validity feature of Oracle Database 12c.
 Examine the table definition:
-【图片】
+
+create table employees
+(	empno number, 
+	salary number,
+	deptid number, 
+	name varchar2(100),
+	period for employee_time
+);
+
 Which three statements are true concerning the use of the Valid Time Temporal feature for the EMPLOYEES table? 
 
 A.The valid time columns employee_time_start and employee_time_end are automatically created. 
@@ -1474,7 +1529,12 @@ F.Local file system I/O
 
 119
 You find this query being used in your Oracle 12c database:
-【图片】
+
+select employee_id, first_name, salary
+from hr.employees
+order by employee_id
+Fetch first 20 percent rows only;
+
 Which method a used by the optimizer to limit the rows being returned?
 
 A.A filter is added to the table query dynamically using ROWNUM to limit the rows to 20 percent of the total rows 
@@ -1523,7 +1583,11 @@ E.The command will create a user in the root container only because the containe
 
 122
 In your multitenant container database (CDB) containing same pluggable databases (PDBs), you execute the following commands in the root container:
-【图片】
+
+SQL> CREATE ROLE c##role1;
+SQL> GRANT create view, create procedure to c##role1;
+SQL> GRANT c##role1 to c##a_admin;
+
 Which two statements are true?
 
 A.The C##ROLE1 role is created in the root database and all the PDBs.
@@ -1536,7 +1600,6 @@ E.The statement for granting a role to a user fails because the CONTAINER clause
 
 123
 You have altered a non-unique index to be invisible to determine if queries execute within an acceptable response time without using this index.
-
 Which two are possible if table updates are performed which affect the invisible index columns? 
 
 A.The index remains invisible. 
@@ -1718,7 +1781,15 @@ D.Decreasing the value of the IDLE_TIME resource limit in the default profile
 
 136
 Examine these two statements:
-【图片】
+
+SQL> CREATE BIGFILE TABLESPACE MRKT
+  2  DATAFILE ‘/u01/app/oracle/oradata/orcl/mrkt.dbf’ size 10m LOGGING
+  3  EXTENT MANAGEMENT LOCAL SEGMENT SPACE MANAGEMENT AUTO;
+Tablespace created.
+
+SQL> ALTER DATABASE DEFAULT TABLESPACE MRKT;
+Database altered.
+
 Which three are true about the MRKT tablespace?
 
 A.The MRKT tablespace is created as a small file tablespace, because the file size is less than the minimum required for big file files.
@@ -1765,6 +1836,9 @@ C.It fails and reports an error because the CONTAINER=ALL clause is not specifie
 D.It fails and reports an error because the CONTAINER=CURRENT clause is not specified in the command. 
 E.It executes successfully but neither tablespace nor the data file is created.
 正确答案是 E
+【解析】
+Interesting behavior in 12.1.0.1 DB of creating an undo tablespace in a PDB. With the new Multitenant architecture the undo tablespace resides at the CDB level and PDBs all share the same UNDO tablespace.
+When the current container is a PDB, an attempt to create an undo tablespace fails without returning an error.
 
 140
 Which statement is true about Enterprise Manager (EM) express in Oracle Database 12c? 
@@ -1800,15 +1874,28 @@ E.The movement of some blocks to a target tablespace with a lower degree of comp
 
 143
 Examine the query and its output executed In an RDBMS Instance:
-【图片】
+
+SQL> SELECT * FROM v$pwfile_users;
+
+USERNAME        SYSDB   SYSOP  SYSAS   SYSBA    SYSDG   SYSKM    CON_ID
+-------------- -------- ------ ------- -------- ------ --------- -----
+SYS             TRUE    TRUE   FALSE   FALSE    FALSE   FALSE         0
+C##B_ADMIN      FALSE   FALSE  FALSE   TRUE     FALSE   FALSE         0
+C##C_ADMIN      FALSE   FALSE  FALSE   FALSE    TRUE    FALSE         0
+C##A_ADMIN      FALSE   FALSE  FALSE   FALSE    FALSE   TRUE          0
+C##D_ADMIN      FALSE   FALSE  TRUE    FALSE    FALSE   FALSE         0
+
 Which three statements are true about the users (other than sys) in the output?
 
-A.The C## B_ADMIN user can perform all backup and recovery operations using RMAN only. 
-B.The C## C_ADMIN user can perform the data guard operation with Data Guard Broker. 
-C.The C## A_ADMIN user can perform wallet operations. 
-D.The C## D_ADMIN user can perform backup and recovery operations for Automatic Storage Management (ASM). 
-E.The C## B_ADMIN user can perform all backup and recovery operations using RMAN or SQL* Plus.
+A.The C##B_ADMIN user can perform all backup and recovery operations using RMAN only. 
+B.The C##C_ADMIN user can perform the data guard operation with Data Guard Broker. 
+C.The C##A_ADMIN user can perform wallet operations. 
+D.The C##D_ADMIN user can perform backup and recovery operations for Automatic Storage Management (ASM). 
+E.The C##B_ADMIN user can perform all backup and recovery operations using RMAN or SQL* Plus.
 正确答案是 B,D,E
+【解析】
+E (Not A): SYSDBA is like a role in the sense that it is granted, but SYSDBA is a special built-in privilege to allow the DBA full control over the database
+Not C: SYSKM. SYSKM administrative privilege has ability to perform transparent data encryption wallet operations
 
 144
 Which three statements are true about Oracle Data Pump export and import operations? (Choose two.) 
@@ -1917,7 +2004,11 @@ E.Both the indexes are updated when a new row is inserted, updated, or deleted I
 
 153
 A database is stored in an Automatic Storage Management (ASM) disk group, disk group, DGROUP1 with SQL:
-【图片】
+
+SQL> CREATE DISKGROUP dgroup1 NORMAL REDUNDANCY
+     FAILGROUP controller1 DISK ‘‘/devices/diska1’, ‘/devices/diska2’
+     FAILGROUP controller2 DISK ‘/devices/diskb1’, ‘/devices/diskb2’ ;
+
 There is enough free space in the disk group for mirroring to be done.
 What happens if the CONTROLLER1 failure group becomes unavailable due to error of for maintenance? 
 
@@ -1965,7 +2056,30 @@ D.All the components may be moved from the SYSAUX tablespace.
 
 157
 Examine the following commands for redefining a table with Virtual Private Database (VPD) policies:
-【图片】
+
+BEGIN
+  DBMS_RLS.ADD_POLICY (
+    object_schema   => 'hr',
+    object_name     => 'employees',
+    policy_name     => 'employees_policy',
+    function_schema => 'hr',
+    policy_function => 'auth_emp_dep_100',
+    statement_type  => 'select, insert, update, delete’
+  );
+END;
+
+BEGIN
+  DBMS_REDEFINITION.START_REDEF_TABLE (
+    uname          => 'hr',
+    orig_table     => 'employees',
+    int_table      => 'int_employees',
+    col_mapping    => NULL,
+    options_flag   => DBMS_REDEFINITION.CONS_USE_PK,
+    orderby_cols   => NULL,
+    part_name      => NULL
+    copy_vpd_opt   => DBMS_REDEFINITION.CONS_VPD_AUTO);
+END;
+
 Which two statements are true about redefining the table? 
 
 A.All the triggers for the table are disabled without changing any of the column names or column types in the table. 
@@ -1988,6 +2102,8 @@ C.Take the temporary tablespace offline, recover the missing temp file by applyi
 D.Shutdown the database instance, restore and recover the temp file from the backup, and then open the database with RESETLOGS. 
 E.Shut down the database instance and then restart the CDB and PDBs.
 正确答案是 A,E
+【解析】
+Because temp files cannot be backed up and because no redo is ever generated for them, RMAN never restores or recovers temp files. RMAN does track the names of temp files, but only so that it can automatically re-create them when needed.
 
 159
 You upgraded from a previous Oracle database version to Oracle Database version to Oracle Database 12c. Your database supports a mixed workload.
@@ -2056,6 +2172,12 @@ B.10, 1, 2, 5, 8
 C.10, 1, 2, 5, 4, 9, 8 
 D.10, 1, 5, 8, 10
 正确答案是 A
+【解析】
+Explanation:
+RMAN> ALTER TABLESPACE sysaux OFFLINE IMMEDIATE;
+RMAN> RESTORE TABLESPACE sysaux;
+RMAN> RECOVER TABLESPACE sysaux;
+RMAN> ALTER TABLESPACE sysaux ONLINE;
 
 164
 Which Oracle Database component is audited by default if the unified Auditing option is enabled? 
@@ -2156,10 +2278,15 @@ Which two statements are true about the (PMON) background process in Oracle Data
 
 A.It records checkpoint information in the control file. 
 B.It frees unused temporary segments. 
-C.It kills sessions that exceed idle time, 
+C.It kills sessions that exceed idle time
 D.It registers database services with all local and remote listeners known to the database instance. 
 E.It frees resources held by abnormally terminated processes
 正确答案是 D,E
+【网络答案】C、E
+【解析 not D】12c中，是有LREG来负责注册监听器的。12c之前的版本，是有PMON来负责。
+【PMON的作用】：
+Monitors the other background processes and performs process recovery when a server or dispatcher process terminates abnormally
+【参考】https://docs.oracle.com/database/121/REFRN/GUID-86184690-5531-405F-AA05-BB935F57B76D.htm#REFRN104
 
 173
 You execute this command:
@@ -2196,6 +2323,8 @@ C.It can be configured to automatically restart a database in case of normal shu
 D.It can be used to only start Oracle components. 
 E.It runs periodic check operations to monitor the health of Oracle components.
 正确答案是 B,D,E
+【网络答案】ABE
+【参考】https://docs.oracle.com/cd/E11882_01/server.112/e25494/restart.htm#ADMIN12710
 
 176
 You have the following entry in the tnsnames.ors of your hq.us.example.com host machine:
@@ -2360,7 +2489,7 @@ D.Use a job array
 You set the following parameters in the parameter file and restart the database instance:
 
 MEMORY_TARGET=500M
-PAG_AGGREGATE_TARGET=90M
+PGA_AGGREGATE_TARGET=90M
 SGA_TARGET=270M
 
 Which two statements are true?
@@ -2519,7 +2648,10 @@ C.when a tablespace is made read-only or taken offline
 D.when PMON cleans up dirty buffers in the database buffer cache 
 E.when clean buffers for reading new blocks into the database buffer cache are not found easily
 正确答案是 C,E
-【参考】https://docs.oracle.com/cd/B19306_01/server.102/b14220/process.htm#i7259
+【参考】
+https://docs.oracle.com/cd/B19306_01/server.102/b14220/process.htm#i7259
+https://datacadamia.com/db/oracle/dbwn
+https://oracledbwr.com/oracle-database-writer-background-process/
 
 198
 Your database supports a Decision Support System (DSS) workload that involves the execution of complex queries. Currently, the database is running with peak workload
@@ -2547,6 +2679,10 @@ B.disabling Oracle Flashback Database if enabled
 C.opening the database in exclusive mode 
 D.placing all tablespaces in read-only mode
 正确答案是 B
+【解析】
+To migrate the entire database and fast recovery area from alternative storage to Oracle ASM, perform the following steps:
+1、Back up the database and server parameter file, and disable Oracle Flashback Database.
+2、Restore files to Oracle ASM, recover the database, and optionally migrate the fast recovery area to Oracle ASM.
 【参考】https://docs.oracle.com/cd/E11882_01/server.112/e18951/asm_rman.htm#OSTMG12121
 
 200
@@ -2724,7 +2860,7 @@ You want to ensure that:
 1.The user account must be locked after five consecutive unsuccessful login attempts.
 2.Data read per session must be limited for the user.
 3 The user cannot have more than three simultaneous sessions.
-4. The user must have a maximum of 10 minutes session idle time before being logged off automatically.
+4.The user must have a maximum of 10 minutes session idle time before being logged off automatically.
 Which two would you do to implement this?
 
 A.by alerting the appropriate user attributes with an ALTER USER command 
@@ -2785,7 +2921,7 @@ B.Only the CREATE, ALTER, and DROP statements are audited for all users, includi
 C.Unified auditing is enabled only if the AUDIT_TRAIL parameter is set to NONE.
 D.The unified audit trail contains audit records only from unified audit policies and AUDIT settings.
 正确答案是 A
-【参考】https://docs.oracle.com/database/121/DBSEG/audit_admin.htm#DBSEG370
+【参考】https://docs.oracle.com/database/121/DBSEG/audit_admin.htm#DBSEG361
 
 219
 What is the benefit of running the catctl.pl script during an upgrade of a pre-12c database to an Oracle 12c database? 
@@ -3004,6 +3140,7 @@ D.Shut down the database instance.
 E.Disable auditing by setting the initialization parameter AUDIT_TRAIL to NONE,
 正确答案是 C,E
 【网络答案】CD
+【参考】https://docs.oracle.com/database/121/TDPSG/GUID-BF747771-01D1-4BFB-8489-08988E1181F6.htm#TDPSG55281
 
 235
 In your Oracle 12c database, you invoke SQL*Loader Express Mode command to load data:
@@ -3016,6 +3153,7 @@ C.It fails because the SQL *Loader data file location is not specified.
 D.It succeeds with default settings if the EMPLOYEES table belonging to the HR schema is already defined in the database. 
 E.It succeeds even if the HR user does not have the CREATE DIRECTORY privilege.
 正确答案是 D,E
+有疑问，为什么E是对的？
 
 236
 Which two files must you copy from the Oracle home of the database that is being upgraded to the new Oracle home for Oracle Database 12c? (Choose three.) 
@@ -3047,6 +3185,8 @@ D.limiting the CPU used per database call
 E.specifying the amount of private space a session can allocate in the shared pool of the SGA.
 正确答案是 A,B,C
 【参考】http://docs.oracle.com/cd/B19306_01/server.102/b14231/dbrm.htm
+【崔老师答案】ABD
+【NOT C】for a user不对，应该是针对资源消耗组
 
 239
 Which three tools or tasks are run by default as part automated maintenance tasks? 
@@ -3212,13 +3352,20 @@ E.When an alert is cleared, it is moved to the DBA_ALERT_HISTQRY view.
 You want to import the schema objects of the HR user from the development database DEVDB to the production database PRODDB by using Oracle Data Pump.
 A database link devdb.us.oracle.com is created between PRODDB and DEVDB.
 You execute the following command on the PRODDB database server:
-【图片】
+
+$ impdp system/manager directory = DB_DATA dumpfile = schemas.dat schemas = hr flashback_time = "TO_TIMESTAMP ('05-01-2012 14:35:00', 'DD-MM-YYYY HH24:MI:SS')"
+The command fails, displaying the following error:
+ORA-39001: invalid argument valid
+ORA-39000: bad dump file specification
+ORA-31640: unable to open dump file "/home/oracle/schema/schemas.dat" for read
+ORA-27037: unable to obtain file status
+
 What should you do to resolve the error?
 
 A.Add network_link = devdb.us.oracle.com. 
 B.Add the SYSTEM user to the schemas option.
 C.Change the dumpfile option value to schema.dat@devdb.us.oracle.com. 
-D.Replace the schemas option with network_link = devdb.us. oracle. com. 
+D.Replace the schemas option with network_link = devdb.us.oracle.com. 
 E.Replace the dumpfile option with network_link = devdb.us.oracle.com.
 正确答案是 E
 
@@ -3316,7 +3463,7 @@ Which tool would you use.
 A.external table 
 B.Oracle data Pump 
 C.SQL*Loader with a direct data path 
-D.SGL*Loader with a conventional data path 
+D.SQL*Loader with a conventional data path 
 E.Enterprise Manager Database Express
 正确答案是 A,B,D
 【网络答案】C
@@ -3378,6 +3525,12 @@ D.Use Database Resource Manager to automatically kill the sessions that are idle
 E.Decrease the IDLE_TIME resource limit in the profiles assigned to blocking users.
 正确答案是 B,D
 【网络答案】DE
+【参考】https://docs.oracle.com/database/121/SQLRF/statements_6012.htm#SQLRF01310
+【解析】
+SESSIONS_PER_USER：
+Specify the number of concurrent sessions to which you want to limit the user.
+IDLE_TIME 
+Specify the permitted periods of continuous inactive time during a session, expressed in minutes. Long-running queries and other operations are not subject to this limit.
 
 266
 Which three functions can be performed by the SQL Tuning Advisor? 
@@ -3419,7 +3572,8 @@ You create the profile:
 CREATE PROFILE app_user LIMIT
 	SESSIONS_PER_USER 5
 	CPU_PER_SESSION UNLIMITED
-	CPU_PER_CALL 3000 IDEL_TIME 10
+	CPU_PER_CALL 3000 
+	IDEL_TIME 10
 	PASSWORD_LIFE_TIME 60
 	PASSWORD_REUSE_TIME 60
 	PASSWORD_REUSE_MAX UNLIMITED 
@@ -3547,7 +3701,7 @@ B.using direct-path INSERT SQL statements
 C.using SQL*Loader 
 D.using RMAN transportable tablespace operation
 正确答案是 D
-【网络答案】C
+【参考】https://docs.oracle.com/cd/E18283_01/backup.112/e10642/rcmxplat.htm
 
 281
 You want to create a locally managed tablespace called NEWTBS to store segments with different extent sizes
@@ -3635,7 +3789,7 @@ C.They reduce the time required for recovery in case of an instance failure.
 D.They ensure that all the dirty buffers are written to disk during a normal shutdown. 
 E.They ensure that instance recovery starts in the event of an instance failure.
 正确答案是 B,C,E
-【网络答案】B、C、D
+【网络答案】B、C、D（已经过崔老师确认）
 【参考】https://docs.oracle.com/en/database/oracle/oracle-database/12.2/cncpt/oracle-database-instance.html#GUID-4EC2658A-9519-4188-90C6-AA79F14D85D2
 
 289

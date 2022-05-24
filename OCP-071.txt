@@ -23,11 +23,10 @@ A.Aggregate functions can be used in any clause of a SELECT statement.
 B.The MAX and MIN functions can be used on columns with character data types.
 C.The AVG function implicitly converts NULLS to zero.
 D.Aggregate functions can be nested to any number of levels. 
-
 正确答案是 B， 回答正确
+
 3
 Which two statements are true about substitution variables?
-
 
 A.A substitution variable prefixed with & always prompts only once for a value in a session.
 B.A substitution variable used to prompt for a column name must be enclosed in double quotation marks.
@@ -35,27 +34,19 @@ C.A substitution variable can be used only in a SELECT statement.
 D.A substitution variable can be used with any clause in a SELECT statement.
 E.A substitution variable used to prompt for a column name must be enclosed in single quotation marks.
 F.A substitution variable prefixed with && prompts only once for a value in a session unless it is set to undefined in the session. 
-
 正确答案是 B,F， 回答正确
+
 4
 The CUSTOMERS table has a CUST_LAST_NAME column of data type VARCHAR2.
-
-
 The table has two rows whose CUST_LAST_NAME values are Anderson and Ausson.
-
-
 Which query produces output for CUST_LAST_NAME containing oder for the first row and Aus for the second?
 
-
 A.SELECT INITCAP(REPLACE(TRIM('son' FROM cust_last_name), 'An', 'O')) FROM customers;
-
 B.SELECT REPLACE(SUBSTR(cust_last_name, -3), 'An', 'O') FROM customers;
-
 C.SELECT REPLACE(REPLACE(cust_last_name, 'son', ''), 'An', 'O') FROM customers;
-
 D.SELECT REPLACE(TRIM(TRAILING ' son' FROM cust_last_name), 'An', 'O') FROM customers;
-
 正确答案是 C， 回答正确
+
 5
 You have been tasked to create a table for a banking application.
 
@@ -198,9 +189,9 @@ D.SELECT promo_category, DISTINCT promo_cost FROM promotions ORDER BY 2;
 E.SELECT DISTINCT promo_cost ||' in '|| DISTINCT promo_category FROM promotions ORDER BY 1;
 
 正确答案是 A,B， 回答正确
+
 10
 Which two actions can you perform with object privileges?
-
 
 A.Execute a procedure or function in another schema.
 B.Set default and temporary tablespaces for a user.
@@ -208,33 +199,21 @@ C.Create roles.
 D.Delete rows from tables in any schema except SYS.
 E.Create FOREIGN KEY constraints that reference tables in other schemas.
 正确答案是 A,D， 你的答案是 A,E。你答错了
+
 11
 The ORDERS table has a primary key constraint on the ORDER_ID column.
-
-
 The ORDER_ITEMS table has a foreign key constraint on the ORDER_ID column, referencing the primary key of the ORDERS table.
-
-
 The constraint is defined with ON DELETE CASCADE.
-
-
 There are rows in the ORDERS table with an ORDER_TOTAL of less than 1000.
-
-
 Which three DELETE statements execute successfully?
 
-
 A.DELETE FROM orders;
-
 B.DELETE FROM orders WHERE order_total < 1000;
-
 C.DELETE order_id FROM orders WHERE order_total < 1000;
-
 D.DELETE * FROM orders WHERE order_total < 1000;
-
 E.DELETE orders WHERE order_total < 1000;
-
 正确答案是 A,B,E， 你的答案是 A,B,D。你答错了
+
 12
 Which two are true about multitable INSERT statements?
 
@@ -272,9 +251,9 @@ F.Data Manipulation Language (DML) can always be used on views.
 G.The WITH CHECK clause prevents certain rows from being updated or inserted. 
 
 正确答案是 B,E,G， 回答正确
+
 15
 Which three statements are true about built-in data types?
-
 
 A.A BFILE stores unstructured binary data in operating system files.
 B.A VARCHAR2 blank pads column values only if the data stored is non-numeric and contains no special characters.
@@ -283,6 +262,8 @@ D.A BLOB stores unstructured binary data within the database.
 E.A VARCHAR2 column definition does not require the length to be specified.
 F.A CHAR column definition does not require the length to be specified.
 正确答案是 A,D,F， 你的答案是 B,D,F。你答错了
+【NOT C】Fixed-length character data of length size bytes or characters. Maximum size is 2000 bytes or characters. Default and minimum size is 1 byte.
+
 16
 Examine the description of the PRODUCTS table:
 
@@ -331,16 +312,11 @@ C.DML statements require a primary key be defined on a table.
 D.INSERT statements can insert NULLS explicitly into a column.
 E.INSERT INTO...SELECT...FROM statements automatically commit.
 正确答案是 A,B,D， 回答正确
+
 18
 You execute this command:
-
-
-
 ALTER TABLE employees SET UNUSED (department_id);
-
-
 Which two are true?
-
 
 A.The DEPARTMENT_ID column is set to null for all rows in the table.
 B.The storage space occupied by the DEPARTMENT_ID column is released only after a COMMIT is issued.
@@ -349,47 +325,29 @@ D.No updates can be made to the data in the DEPARTMENT_ID column.
 E.A query can display data from the DEPARTMENT_ID column.
 F.The DEPARTMENT_ID column can be recovered from the recycle bin.
 正确答案是 C,D， 你的答案是 B,D。你答错了
+
 19
 Examine the description of the CUSTOMERS table:
-
-
-
 Name                    Null?          Type 
-
 ---------------------- --------------- -----------------
-
 CUSTNO                  NOT NULL        NUMBER(3)
-
 CUSTNAME                NOT NULL        VARCHAR2(25)
-
 CUSTADDRESS                             VARCHAR2(35)
-
 CUST_CREDIT_LIMIT                       NUMBER(5)
-
-
 CUSTNO is the PRIMARY KEY.
 
-
 You must determine if any customers' details have been entered more than once using a different CUSTNO, by listing all duplicate names.
-
-
 Which two methods can you use to get the required result?
 
-
 A.RIGHT OUTER JOIN with self join
-
 B.LEFT OUTER JOIN with self join
-
 C.subquery
-
 D.self join
-
 E.FULL OUTER JOIN with self join
-
 正确答案是 C,D， 回答正确
+
 20
 Which three actions can you perform by using the ALTER TABLE command?
-
 
 A.Lock a set of rows in a table.
 B.Rename a table.
@@ -398,41 +356,35 @@ D.Restrict all DML statements on a table.
 E.Drop pseudocolumns from a table.
 F.Drop all columns simultaneously from a table.
 正确答案是 B,C,D， 你的答案是 B,C,F。你答错了
+【NOT F】不能删除所有的列，如下：
+HR@pdb1> alter table test drop (col1,col2);
+alter table test drop (col1,col2)
+*
+ERROR at line 1:
+ORA-12983: cannot drop all columns in a table
+【D】alter table test read only; 只读
+
 21
 Table ORDER_ITEMS contains columns ORDER_ID, UNIT_PRICE and QUANTITY, of data type NUMBER.
-
-
 Examine these SQL statements:
-
-
-
-Statement 1: .
-
-
+Statement 1: 
 SELECT MAX(unit_price * quantity) "Maximum Order"
-
     FROM order_items ; 
 
-
 Statement 2:
-
-
-
 SELECT MAX(unit_price * quantity) "Maximum order"
-
     FROM order_items   GROUP BY order_id;
 
-
 Which two statements are true?
-
 
 A.Both the statements give the same output.
 B.Statement 2 returns only one row of output.
 C.Statement 2 may return multiple rows of output.
 D.Statement 1 returns only one row of output.
 E.Both statements will return NULL if either UNIT_PRICE or QUANTITY contains NULL
-
 正确答案是 B,D， 你的答案是 C,D。你答错了
+【解析】已确认，正确答案应该是CD
+
 22
 Examine the description of the BOOKS_TRANSACTIONS table:
 
@@ -522,9 +474,9 @@ E.The primary key constraint will be enabled and IMMEDIATE
  
 
 正确答案是 D,E， 回答正确
+
 24
 Which three statements are true about GLOBAL TEMPORARY TABLES?
-
 
 A.Any GLOBAL TEMPORARY TABLE rows existing at session termination will be deleted.
 B.A GLOBAL TEMPORARY TABLE's definition is available to multiple sessions.
@@ -532,44 +484,30 @@ C.A TRUNCATE command issued in a session causes all rows in a GLOBAL TEMPORARY T
 D.GLOBAL TEMPORARY TABLE space allocation occurs at session start.
 E.A DELETE command on a GLOBAL TEMPORARY TABLE cannot be rolled back.
 F.GLOBAL TEMPORARY TABLE rows inserted by a session are available to any other session whose user has been granted select on the table. 
-
 正确答案是 A,B,C， 你的答案是 B,C,D。你答错了
+【NOT D】临时表是不分配永久性存储空间，而是存放在临时表空间中，所以答案D错误
+
 25
 Examine the description of the EMPLOYEES table:
-
-
-
 Name                    Null?          Type
-
 ---------------------- --------------- -----------------
-
 EMP_ID                  NOT NULL        NUMBER
-
 EMP_NAME                                VARCHAR2(10)
-
 DEPT_ID                                 NUMBER(2)
-
 SALARY                                  NUMBER(8,2)
-
 JOIN_DATE                               DATE
 
-
 NLS_DATE_FORMAT is set to DD-MON-YY.
-
-
 Which query requires explicit data type conversion?
 
 A.SELECT salary + '120.50' FROM employees;
-
 B.SELECT join_date FROM employees WHERE join_date > '10-02-2018'
-
 C.SELECT join_date || ' ' || salary FROM employees;
-
 D.SELECT join_date + '20' FROM employees;
-
 E.SELECT SUBSTR(join_date, 1, 2) - 10 FROM employees;
-
 正确答案是 B， 你的答案是 A。你答错了
+？
+
 26
 The STORES table has a column START_DATE of data type DATE, containing the date the row was inserted.
 
@@ -620,92 +558,58 @@ E.The subquery is executed before the UPDATE statement is executed.
 
 29
 Examine the description of the BooKs table:
-
-
-
 Name                    Null?          Type
-
 ---------------------- --------------- -----------------
-
 TRANSACTION_ID          NOT NULL        VARCHAR2(6)
-
 TRANSACTION_DATE                        DATE
-
 AMOUNT                                  NUMBER(10,2)
-
 CUSTOMER_ID                             VARCHAR2(6)
-
-
 The table has 100 rows.
-
-
 Examine this sequence of statements issued in a new session:
 
-
-
 INSERT INTO books VALUES ('ADV112', 'Adventures of Tom Sawyer', NULL, NULL);
-
 SAVEPOINT a;
-
 DELETE FROM books ;
-
 ROLLBACK TO SAVEPOINT a;
-
 ROLLBACK;
-
 
 Which two statements are true?
 
 A.The second ROLLBACK command does nothing.
 B.The second ROLLBACK command undoes the insert.
 C.The first ROLLBACK command restores the 101 rows that were deleted and commits the inserted row
-
 D.Tho first ROLLBACK command restores the 101 rows that were deleted leaving the inserted row still to be committed.
 E.The second ROLLBACK command replays the delete.
 正确答案是 B,D， 你的答案是 D,E。你答错了
+
 30
 Evaluate these commands which execute successfully:
 
-
-
 CREATE SEQUENCE ord_seq
-
    INCREMENT BY 1
-
    START WITH
-
    MAXVALUE 100000
-
    CYCLE
-
    CACHE 5000;
 
-
-
 CREATE TABLE ord_items (
-
-   ord_no       NUMBER(4) DEFAULT ord_seq.NEXTVAL NOT NULL,
-
+   ord_no      NUMBER(4) DEFAULT ord_seq.NEXTVAL NOT NULL,
    item_no     NUMBER(3),
-
    qty         NUMBER(3),
-
    expiry_date DATE,
-
    CONSTRAINT it_pk PRIMARY KEY (ord_no, item_no) ,
-
    CONSTRAINT ord_fk FOREIGN KEY (ord_no) REFERENCES orders (ord_no));
 
-
 Which two statements are true about the ORD_ITEMS table and the ORD_SEQ sequence?
-
 
 A.Sequence ORD_SEQ is guaranteed not to generate duplicate numbers.
 B.If sequence ORD_SEQ is dropped then the default value for column ORD_NO will be NULL for rows inserted into ORD_ITEMS.
 C.Column ORD_NO gets the next number from sequence ORD_SEQ whenever a row is inserted into ORD_ITEMS and no explicit value is given for ORD_NO.
 D.Sequence ORD_SEQ cycles back to 1 after every 5000 numbers and can cycle 20 times.
-E.Any user inserting rows into table ORD_ITEMS must have been granted aces to sequence ORD_SEQ.
+E.Any user inserting rows into table ORD_ITEMS must have been granted access to sequence ORD_SEQ.
 正确答案是 B,C， 你的答案是 C,E。你答错了
+?
+
 31
 The PRODUCT_INFORMATION table has a UNIT_PRICE column of data type NUMER(8,2).
 
@@ -771,9 +675,9 @@ C.The data type group of each column returned by the second query must match the
 D.The number, but not names, of columns must be identical for all SELECT statements in the query.
 E.The names and number of columns must be identical for all SELECT statements in the query.
 正确答案是 B,D， 回答正确
+
 34
 Which two statements are true regarding the UNION and UNION ALL operators?
-
 
 A.The output is sorted by the UNION ALL operator.
 B.The number of columns selected in each SELECT statement must be identical.
@@ -781,38 +685,26 @@ C.Duplicates are eliminated automatically by the UNION ALL operator.
 D.NULLS are not ignored during duplicate checking.
 E.The names of columns selected in each SELECT statement must be identical.
 正确答案是 C,D， 你的答案是 B,D。你答错了
+?
+
 35
 Examine the description of the EMPLOYEES table:
-
-
-
 Name                    Null?          Type
-
 ---------------------- --------------- -----------------
-
 EMP_ID                   NOT NULL       NUMBER
-
 EMP_NAME                                VARCHAR2(40)
-
 DEPT_ID                                 NUMBER(2)
-
 SALARY                                  NUMBER(8,2)
-
 JOIN_DATE                               DATE
-
 
 Which query is valid?
 
-
 A.SELECT dept_id, join_date, SUM(salary) FROM employees GROUP BY dept_id, join_date;
-
 B.SELECT dept_id, MAX(AVG(salary)) FROM employees GROUP BY dept_id;
-
 C.SELECT dept_id, AVG(MAX(salary)) FROM employees GROUP BY dept_id;
-
 D.SELECT dept_id, join_date, SUM(salary) FROM employees GROUP BY dept_id;
-
 正确答案是 A， 回答正确
+
 36
 Which two statements are true about INTERVAL data types?
 
@@ -825,9 +717,9 @@ D.INTERVAL YEAR TO MONTH columns only support monthly intervals within a single 
 E.The value in an INTERVAL DAY TO SECOND column can be copied into an INTERVAL YEAR TO MONTH column.
 F.The YEAR field in an INTERVAL YEAR TO MONTH column must be a positive value.
 正确答案是 A,B， 回答正确
+
 37
 Which two statements are true about a full outer join?
-
 
 A.It includes rows that are returned by a Cartesian product.
 B.It returns matched and unmatched rows from both tables being joined.
@@ -835,6 +727,7 @@ C.It includes rows that are returned by an inner join.
 D.It returns only unmatched rows from both tables being joined.
 E.The Oracle join operator (+) must be used on both sides of the join condition in the WHERE clause.
 正确答案是 B,E， 你的答案是 B,C。你答错了
+?
 
 38
 Which three statements are true about performing Data Manipulation Language (DML) operations on a view in an Oracle Database?
@@ -851,7 +744,6 @@ F.The WITH CHECK clause has no effect when deleting rows from the underlying tab
 39
 Which two are true about the WITH GRANT OPTION clause?
 
-
 A.The grantee must have the GRANT ANY OBJECT PRIVILEGE system privilege to use this option.
 B.It can be used to pass on privileges to other users by the grantee.
 C.It cannot be used to pass on privileges to PUBLIC by the grantee.
@@ -859,6 +751,7 @@ D.It can be used when granting privileges to roles.
 E.It can be used for system and object privileges.
 F.The grantee can grant the object privilege to any user in the database, with or without including this option.
 正确答案是 B,F， 你的答案是 B,C,F。你答错了
+
 40
 Which three are true about privileges and roles?
 
@@ -954,7 +847,6 @@ E.WHERE (UPPER(cust_last_name) LIKE 'A%' OR UPPER(cust_last_name) LIKE 'B%')
 45
 Which three statements are true about time zones, date data types, and timestamp data types in an Oracle database?
 
-
 A.The DBTIMEZONE function can return an offset from Universal Coordinated Time (UTC).
 B.The SESSIONTIMEZONE function can return an offset from Universal Coordinated Time (UTC).
 C.A TIMESTAMP data type column contains information about year, month, and day.
@@ -1042,9 +934,9 @@ E.INSERT INTO rate_list VALUES (0.551) inserts the value as .55.
 F.INSERT INTO rate_list VALUES (87654.556) inserts the value as 87654.6. 
 
 正确答案是 A,E， 回答正确
+
 52
 Which two statements are true about date/time functions in a session where NLS_DATE_FORMAT is set to DD-MON-YY HH24:MI:SS?
-
 
 A.SYSDATE and CURRENT_DATE return the current date and time set for the operating system of the database server.
 B.SYSDATE can be used in expressions only if the default date format is DD-MON-RR.
@@ -1053,6 +945,7 @@ D.CURRENT_TIMESTAMP returns the same date as CURRENT_DATE.
 E.CURRENT_DATE returns the current date and time as per the session time zone.
 F.CURRENT_TIMESTAMP returns the same date and time as SYSDATE with additional details of factional seconds.
 正确答案是 E,F， 你的答案是 D,E,F。你答错了
+
 53
 Examine this SQL statement:
 
@@ -1319,9 +1212,9 @@ C.COUNT(DISTINCT inv_amt) returns the number of rows excluding rows containing d
 D.It can only be used for NUMBER data types.
 E.A SELECT statement using the COUNT function with a DISTINCT keyword cannot have a WHERE clause.
 正确答案是 B,C， 回答正确
+
 63
 Which three statements are true about defining relations between tables in a relational database?
-
 
 A.Every primary or unique key value must refer to a matching foreign key value.
 B.Primary key columns allow null values.
@@ -1329,9 +1222,9 @@ C.Every foreign key value must refer to a matching primary or unique key value.
 D.Foreign key columns allow null values.
 E.Unique key columns allow null values.
 正确答案是 A,C,E， 你的答案是 C,D,E。你答错了
+
 64
 Which three statements are true about the Oracle join and ANSI join syntax?
-
 
 A.The Oracle join syntax performs less well than the SQL:1999 compliant ANSI join syntax.
 B.The Oracle join syntax only supports right outer joins.
@@ -1341,6 +1234,8 @@ E.The Oracle join syntax supports creation of a Cartesian product of two tables.
 F.The SQL:1999 compliant ANSI join syntax supports creation of a Cartesian product of two tables.
 G.The Oracle join syntax supports natural joins.
 正确答案是 D,E,G， 你的答案是 E,F,G。你答错了
+？
+
 65
 You want to write a query that prompts for two column names and the WHERE condition each time it is executed in a session but only prompts for the table name the first time it is executed.
 
@@ -1409,20 +1304,15 @@ C.A synonym can be created on an object in a package.
 D.Any user can create a PUBLIC synonym.
 E.All private synonym names must be unique in the database.
 正确答案是 A,B， 回答正确
+
 68
 Examine this query:
 
-
-
 SELECT employee_id, first_name, salary
-
    FROM employees
-
   WHERE hire_date > '&1' ;
 
-
 Which two methods should you use to prevent prompting for a hire date value when this query is executed?
-
 
 A.Store the query in a script and pass the substitution value to the script when executing it.
 B.Execute the SET VERIFY ON command before executing the query.
@@ -1431,6 +1321,7 @@ D.Replace '&1' with '&&1' in the query.
 E.Use the UNDEFINE command before executing the query.
 F.Execute the SET VERIFY OFF command before executing the query.
 正确答案是 A,C， 你的答案是 A,F。你答错了
+
 69
 Examine the description of the PRODUCT_DETAILS table:
 
@@ -1608,18 +1499,20 @@ E.3 rows
 F.8 rows
 
 正确答案是 A， 回答正确
+
 78
 Which three are true about multitable INSERT statements?
-
-
 A.They can be performed on external tables using SQL*Loader.
 B.They can insert each computed row into more than one table.
 C.They can be performed only by using a subquery.
 D.They can be performed on views.
 E.They can be performed on remote tables.
 F.They can be performed on relational tables. 
-
 正确答案是 B,C,F， 你的答案是 B,D,F。你答错了
+【解析】https://oracle-base.com/articles/9i/multitable-inserts#restrictions
+【NOT D】Multitable inserts can only be performed on tables, not on views or materialized views.
+【Not E】You cannot perform a multitable insert via a DB link.
+
 79
 Which three statements are true about dropping and unused columns in an Oracle database?
 
@@ -1689,9 +1582,9 @@ E.SELECT cust_first_name, cust_credit_limit * .05 AS DUE_AMOUNT
  
 
 正确答案是 B， 回答正确
+
 81
 Which four statements are true about constraints on Oracle tables?
-
 
 A.A FOREIGN KEY column can contain NULLS.
 B.A UNIQUE constraint can use a pre-existing index on the constrained column or columns.
@@ -1701,6 +1594,10 @@ E.A column can have only one CHECK constraint.
 F.A NOT NULL constraint can be defined at the table level.
 G.A UNIQUE constraint permits NULLS.
 正确答案是 B,C,D,G， 回答正确
+【调整后的答案】ABDG
+【A】外键可以为空
+【C】in other rows不对，应该是in other column
+
 82
 In which three situations does a new transaction always start?
 
@@ -1718,9 +1615,9 @@ E.when issuing a DML statement after a DML statement failed in the same session
 F.when issuing the first Data Manipulation Language (DML) statement after a COMIT or ROLLBACK statement was issued in the same session
 
 正确答案是 A,E,F， 你的答案是 A,B,F。你答错了
+
 83
 Which three actions can you perform by using the ORACLE_DATAPUMP access driver?
-
 
 A.Query data from an external table.
 B.Read data from an external table and load it into a table in the database.
@@ -1729,6 +1626,10 @@ D.Execute DML statements on an external table.
 E.Create a directory object for a ﬂat file.
 F.Create a directory object for an external table.
 正确答案是 A,B,C， 回答正确
+【参考】https://docs.oracle.com/cd/B28359_01/server.111/b28310/tables013.htm#ADMIN01507
+【解析】
+Oracle Database provides two access drivers for external tables. The default access driver is ORACLE_LOADER, which allows the reading of data from external files using the Oracle loader technology. The ORACLE_LOADER access driver provides data mapping capabilities which are a subset of the control file syntax of SQL*Loader utility. The second access driver, ORACLE_DATAPUMP, lets you unload data--that is, read data from the database and insert it into an external table, represented by one or more external files--and then reload it into an Oracle Database.
+
 84
 Which three actions can you perform only with system privileges?
 
@@ -2004,9 +1905,9 @@ D.A view can be created that refers to a non-existent table in its defining quer
 E.Views can join tables only if they belong to the same schema.
 F.Rows inserted into a table using a view are retained in the table if the view is dropped.
 正确答案是 E， 你的答案是 B。你答错了
+
 100
 Which two statements are true about a self join?
-
 
 A.It can be a left outer join.
 B.It must be an equijoin.
@@ -2014,6 +1915,7 @@ C.It can be an inner join.
 D.The join key column must have an index.
 E.It must be a full outer join.
 正确答案是 A,C， 回答正确
+
 101
 Which three statements are true about a self join?
 
